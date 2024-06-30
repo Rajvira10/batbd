@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
             <Navbar />
             <div
                 className="bg-main"
-                style={{ backgroundColor: "#F5F5F5", minHeight: "100vh" }}
+                style={{ minHeight: "89vh" }}
             >
                 {children}
                 <Footer />

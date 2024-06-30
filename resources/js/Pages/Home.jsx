@@ -1,4 +1,4 @@
-import { usePage, useForm } from "@inertiajs/react";
+import { usePage, useForm, Link } from "@inertiajs/react";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Layout from "../Components/Layout";
@@ -93,9 +93,41 @@ function Home() {
         data.gallery.push(file);
     };
 
+    if (user.account_verified_at === null) {
+        return (
+            <Layout>
+                <div style={{ minHeight: "80vh" }}>
+                    <div className="pt-5"></div>
+                    <div
+                        className="card"
+                        style={{ width: "70%", margin: "0px auto" }}
+                    >
+                        <div className="card-body">
+                            <h2
+                                className="text-center py-3"
+                                style={{ fontSize: 32 }}
+                            >
+                                Your account is not approved yet by admin
+                            </h2>
+                            <p className="text-center py-3">
+                                You will access your profile whenever the admin
+                                approved your account. Please be <br /> patient.
+                                If you have any query please{" "}
+                                <Link href="/contact">
+                                    <u>Contact</u>
+                                </Link>
+                                .
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </Layout>
+        );
+    }
+
     return (
         <Layout>
-            <div style={{ backgroundColor: "#F5F5F5" }}>
+            <div>
                 <div
                     className=""
                     style={{

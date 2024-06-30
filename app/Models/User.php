@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Role;
 use App\Models\Country;
 use App\Models\UserGallery;
 use Laravel\Sanctum\HasApiTokens;
@@ -49,5 +50,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function galleries()
     {
         return $this->hasMany(UserGallery::class);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
     }
 }

@@ -3,7 +3,9 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DisclosureController;
 use App\Http\Controllers\AuthenticationController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
@@ -61,4 +63,29 @@ Route::group(['middleware' => ['auth:web']], function() {
 
     Route::get('/members/{user}', [MemberController::class, 'show'])->name('members.show');
 
+    Route::get('/disclosures', [DisclosureController::class, 'index'])->name('disclosures');
+
+    Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+
+    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+    Route::prefix('admin')->middleware('admin')->group(function() {
+
+        Route::get('/', [DashboardController::class, 'admin'])->name('admin.home');
+
+        Route::get('members', [MemberController::class, 'admin'])->name('admin.members');
+
+        Route::get('members/{user}', [MemberController::class, 'show'])->name('admin.members.show');
+
+        Route::post('approve', [MemberController::class, 'approve'])->name('admin.members.approve');
+
+        Route::post('delete', [MemberController::class, 'destroy'])->name('admin.members.destroy');
+
+        Route::get('/disclosures', [DisclosureController::class, 'index'])->name('admin.disclosures');
+
+        Route::get('/contact', [ContactController::class, 'index'])->name('admin.contact');
+
+        Route::post('/contact', [ContactController::class, 'store'])->name('admin.contact.store');
+
+    });
 });

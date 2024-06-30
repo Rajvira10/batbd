@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-const Login = ({ email, user_verified }) => {
+const Login = ({ email }) => {
     return (
         <body className="bg-main">
             <div className="container">

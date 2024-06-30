@@ -84,7 +84,7 @@ const Navbar = () => {
                                             ? "active"
                                             : ""
                                     }`}
-                                    href="#"
+                                    href="/disclosures"
                                 >
                                     Disclosures
                                 </Link>
@@ -96,7 +96,7 @@ const Navbar = () => {
                                             ? "active"
                                             : ""
                                     }`}
-                                    href="#"
+                                    href="/contact"
                                 >
                                     Contact
                                 </Link>

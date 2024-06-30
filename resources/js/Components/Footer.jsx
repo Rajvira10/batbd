@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
     return (
-        <footer style={{ backgroundColor: "#F5F5F5" }}>
+        <footer>
             <div
                 style={{
                     textAlign: "center",

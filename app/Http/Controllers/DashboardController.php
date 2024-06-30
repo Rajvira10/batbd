@@ -116,4 +116,9 @@ class DashboardController extends Controller
 
         return redirect()->route('home')->with('message', ['type' => 'success', 'content' => 'Profile updated successfully !']);
     }
+
+    public function admin(Request $request)
+    {
+        return view('admin.dashboard');
+    }
 }
