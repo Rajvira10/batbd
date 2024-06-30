@@ -66,7 +66,7 @@ const Login = () => {
                                         </div>
                                     )}
                                 </div>
-                                <div className="input-icon-end mb-2">
+                                <div className="input-icon-end mb-2 position-relative">
                                     <input
                                         type="password"
                                         className="form-control"
