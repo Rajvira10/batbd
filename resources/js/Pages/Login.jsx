@@ -1,8 +1,11 @@
-import { Link, useForm } from "@inertiajs/react";
-import React from "react";
+import { Link, useForm, usePage } from "@inertiajs/react";
+import React, { useEffect } from "react";
 import { FaEyeSlash } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Login = () => {
+    const props = usePage().props;
+    const { message } = props.flash;
     const { data, setData, post, processing, errors } = useForm({
         email: "",
         password: "",
@@ -22,8 +25,15 @@ const Login = () => {
         post("/authenticate");
     };
 
+    useEffect(() => {
+        if (message?.type == "success") {
+            toast.success(message?.content);
+        } else {
+            toast.error(message?.content);
+        }
+    }, [message]);
     return (
-        <body className="bg-main">
+        <div className="bg-main">
             <div className="container">
                 <div className="row frm-pg">
                     <div className="col-xl-6 d-flex justify-content-center justify-content-xl-start text-center text-xl-start">
@@ -109,6 +119,7 @@ const Login = () => {
                                     <div className="col-sm-6">
                                         <button
                                             type="submit"
+                                            disabled={processing}
                                             className="btn btn-round btn-gray bg-gray text-light px-5 py-2 fs-20"
                                         >
                                             Login
@@ -205,7 +216,7 @@ const Login = () => {
                     </div>
                 </div>
             </footer>
-        </body>
+        </div>
     );
 };
 

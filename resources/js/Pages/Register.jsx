@@ -1,11 +1,14 @@
-import { Link, useForm } from "@inertiajs/react";
-import React from "react";
+import { Link, useForm, usePage } from "@inertiajs/react";
+import React, { useEffect } from "react";
 import Select from "react-select";
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
 import { FaCalendarAlt, FaEyeSlash } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Register = () => {
+    const props = usePage().props;
+    const { message } = props.flash;
     const { data, setData, post, processing, errors } = useForm({
         full_name: "",
         preferred_name: "",
@@ -27,6 +30,14 @@ const Register = () => {
             [key]: value,
         }));
     };
+
+    useEffect(() => {
+        if (message?.type == "success") {
+            toast.success(message.content);
+        } else {
+            toast.error(message?.content);
+        }
+    }, [message]);
 
     const handleSubmit = (e) => {
         e.preventDefault();

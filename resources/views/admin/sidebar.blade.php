@@ -75,6 +75,51 @@
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item">
+                    @php
+                        $active = $show = '';
+                        if (in_array(session('view_name'), ['admin.disclosures.disclosure.index'])) {
+                            $active = 'active';
+                            $show = 'show';
+                        }
+                    @endphp
+                    <a class="nav-link menu-link {{ $active }}" href="#sidebarDisclosures"
+                        data-bs-toggle="collapse" role="button" aria-expanded="false"
+                        aria-controls="sidebarDisclosures">
+                        <i class="bx bx-list-ul"></i> <span data-key="t-users">Disclosures</span>
+                    </a>
+                    <div class="collapse menu-dropdown {{ $show }}" id="sidebarDisclosures">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.disclosures') }}" target="_self"
+                                    class="nav-link {{ session('view_name') == 'admin.disclosures.disclosure.index' ? 'active' : '' }}"
+                                    data-key="t-user">Disclosures</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    @php
+                        $active = $show = '';
+                        if (in_array(session('view_name'), ['admin.contacts.contact.index'])) {
+                            $active = 'active';
+                            $show = 'show';
+                        }
+                    @endphp
+                    <a class="nav-link menu-link {{ $active }}" href="#sidebarContacts" data-bs-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="sidebarContacts">
+                        <i class="ri-contacts-line"></i> <span data-key="t-users">Messages</span>
+                    </a>
+                    <div class="collapse menu-dropdown {{ $show }}" id="sidebarContacts">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.contacts') }}" target="_self"
+                                    class="nav-link {{ session('view_name') == 'admin.contacts.contact.index' ? 'active' : '' }}"
+                                    data-key="t-user">Message</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </div>
         <!-- Sidebar -->

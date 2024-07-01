@@ -81,11 +81,13 @@ Route::group(['middleware' => ['auth:web']], function() {
 
         Route::post('delete', [MemberController::class, 'destroy'])->name('admin.members.destroy');
 
-        Route::get('/disclosures', [DisclosureController::class, 'index'])->name('admin.disclosures');
+        Route::get('/disclosures', [DisclosureController::class, 'admin'])->name('admin.disclosures');
 
-        Route::get('/contact', [ContactController::class, 'index'])->name('admin.contact');
+        Route::post('/disclosures/store', [DisclosureController::class, 'store'])->name('admin.disclosures.store');
 
-        Route::post('/contact', [ContactController::class, 'store'])->name('admin.contact.store');
+        Route::get('/contact', [ContactController::class, 'admin'])->name('admin.contacts');
+
+        Route::get('show/{contact}', [ContactController::class, 'show'])->name('admin.contact.show');
 
     });
 });
