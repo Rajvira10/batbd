@@ -116,3 +116,32 @@
     });
     // --end--   Jquery - selecting all rows 
 </script>
+
+<script>
+    $(document).ready(function() {
+        const selectCategory = document.querySelectorAll(".select-category");
+        for (let i = 0; i < selectCategory.length; i++) {
+            new Selectr(selectCategory[i]);
+        }
+        $('.summernote').summernote({
+            height: 300,
+            tabsize: 2,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+    });
+    const disableOnSubmit = () => {
+        const button = document.querySelector('#submit');
+        button.disabled = true;
+        button.innerHTML =
+            `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`;
+        return true;
+    }
+</script>

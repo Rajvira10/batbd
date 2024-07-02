@@ -120,6 +120,33 @@
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item">
+                    @php
+                        $active = $show = '';
+                        if (in_array(session('view_name'), ['admin.news.news.index', 'admin.news.archive.index'])) {
+                            $active = 'active';
+                            $show = 'show';
+                        }
+                    @endphp
+                    <a class="nav-link menu-link {{ $active }}" href="#sidebarNews" data-bs-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="sidebarNews">
+                        <i class="ri-newspaper-line"></i> <span data-key="t-users">News</span>
+                    </a>
+                    <div class="collapse menu-dropdown {{ $show }}" id="sidebarNews">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.news') }}" target="_self"
+                                    class="nav-link {{ session('view_name') == 'admin.news.news.index' ? 'active' : '' }}"
+                                    data-key="t-user">News</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.news.archive.index') }}" target="_self"
+                                    class="nav-link {{ session('view_name') == 'admin.news.archive.index' ? 'active' : '' }}"
+                                    data-key="t-user">Archived</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </div>
         <!-- Sidebar -->

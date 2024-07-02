@@ -40,7 +40,6 @@
                                                 @enderror
                                             </div>
                                         </div>
-
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
@@ -58,26 +57,4 @@
         </div>
     </div>
 
-@endsection
-
-@section('custom-script')
-
-    @include('admin.message')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.summernote').summernote({
-                height: 300,
-                tabsize: 2,
-                toolbar: [
-                    ['style', ['style']],
-                    ['font', ['bold', 'underline', 'clear']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['table', ['table']],
-                    ['insert', ['link', 'picture', 'video']],
-                    ['view', ['fullscreen', 'codeview', 'help']]
-                ]
-            });
-        });
-    </script>
 @endsection

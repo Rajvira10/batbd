@@ -74,12 +74,13 @@ a:hover {
 }
 
 .bg-main {
-    background-color: #f5f5f5 !important;
     background: url("../images/bg.jpg");
+    z-index: -1;
     background-position: top right;
     background-size: cover;
     background-attachment: fixed;
 }
+
 .frm-pg {
     padding: 100px 0;
     min-height: calc(100vh - 100px);

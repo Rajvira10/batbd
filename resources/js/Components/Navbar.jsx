@@ -72,7 +72,7 @@ const Navbar = () => {
                                             ? "active"
                                             : ""
                                     }`}
-                                    href="#"
+                                    href="/news"
                                 >
                                     News
                                 </Link>

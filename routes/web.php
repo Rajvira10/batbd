@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
@@ -69,6 +70,9 @@ Route::group(['middleware' => ['auth:web']], function() {
 
     Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
+    
+    Route::get('/news', [NewsController::class, 'index'])->name('news');
+
     Route::prefix('admin')->middleware('admin')->group(function() {
 
         Route::get('/', [DashboardController::class, 'admin'])->name('admin.home');
@@ -89,5 +93,19 @@ Route::group(['middleware' => ['auth:web']], function() {
 
         Route::get('show/{contact}', [ContactController::class, 'show'])->name('admin.contact.show');
 
+
+        Route::prefix('news')->group(function () {
+            Route::get('/', [NewsController::class, 'admin'])->name('admin.news');
+            Route::get('create', [NewsController::class, 'create'])->name('admin.news.create');
+            Route::post('store', [NewsController::class, 'store'])->name('admin.news.store');
+            Route::get('show/{news}', [NewsController::class, 'show'])->name('admin.news.show');
+            Route::get('edit/{news}', [NewsController::class, 'edit'])->name('admin.news.edit');
+            Route::post('update/{news}', [NewsController::class, 'update'])->name('admin.news.update');
+            Route::post('delete', [NewsController::class, 'destroy'])->name('admin.news.destroy');
+            Route::post('publish', [NewsController::class, 'publish'])->name('admin.news.publish');
+            Route::post('unpublish', [NewsController::class, 'unpublish'])->name('admin.news.unpublish');
+            Route::post('archive', [NewsController::class, 'archive'])->name('admin.news.archive');
+            Route::get('archive', [NewsController::class, 'archiveIndex'])->name('admin.news.archive.index');
+        });
     });
 });
