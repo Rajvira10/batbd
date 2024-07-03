@@ -3,6 +3,7 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
@@ -92,7 +93,23 @@ Route::group(['middleware' => ['auth:web']], function() {
         Route::get('/contact', [ContactController::class, 'admin'])->name('admin.contacts');
 
         Route::get('show/{contact}', [ContactController::class, 'show'])->name('admin.contact.show');
+  
+        Route::get('user-roles/{user_id}', [MemberController::class , 'userRoles'])->name('users.user_roles');
 
+        Route::post('user-roles/{user_id}', [MemberController::class, 'assignRoles'])->name('users.assign_roles');
+
+        Route::get('role-permissions/{role_id}', [RoleController::class, 'rolePermissions'])->name('roles.role_permissions');
+    
+        Route::post('role-permissions/{role_id}', [RoleController::class, 'assignPermissions'])->name('roles.assign_permissions');
+
+        Route::prefix("roles")->group(function() {
+            Route::get('/', [RoleController::class, 'index'])->name('roles.index');
+            Route::get('create', [RoleController::class, 'create'])->name('roles.create');
+            Route::post('store', [RoleController::class, 'store'])->name('roles.store');
+            Route::get('edit/{role}', [RoleController::class, 'edit'])->name('roles.edit');
+            Route::post('update/{role}', [RoleController::class, 'update'])->name('roles.update');
+            Route::post('delete', [RoleController::class, 'destroy'])->name('roles.destroy');
+        });
 
         Route::prefix('news')->group(function () {
             Route::get('/', [NewsController::class, 'admin'])->name('admin.news');

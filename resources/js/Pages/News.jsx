@@ -14,20 +14,20 @@ const News = ({ initialArticles, filters }) => {
     const [expandedArticles, setExpandedArticles] = useState({});
 
     const fetchMoreArticles = async () => {
-        // if (!hasMore || !nextPageUrl) return;
-        // try {
-        //     const response = await axios.get(nextPageUrl, {
-        //         headers: {
-        //             Accept: "application/json",
-        //         },
-        //     });
-        //     const data = response.data;
-        //     setArticles((prevArticles) => [...prevArticles, ...data.data]);
-        //     setNextPageUrl(data.next_page_url);
-        //     setHasMore(!!data.next_page_url);
-        // } catch (error) {
-        //     console.error("Error fetching more articles:", error);
-        // }
+        if (!hasMore || !nextPageUrl) return;
+        try {
+            const response = await axios.get(nextPageUrl+"&ajax=1", {
+                headers: {
+                    Accept: "application/json",
+                },
+            });
+            const data = response.data;
+            setArticles((prevArticles) => [...prevArticles, ...data.data]);
+            setNextPageUrl(data.next_page_url);
+            setHasMore(!!data.next_page_url);
+        } catch (error) {
+            console.error("Error fetching more articles:", error);
+        }
     };
 
     const handleSearch = (event) => {
@@ -68,7 +68,6 @@ const News = ({ initialArticles, filters }) => {
                 className="container"
                 style={{ width: "70%", margin: "0px auto" }}
             >
-                contact
                 <div className="row mt-4 mb-2">
                     <div className="col-md-4">
                         <h1>News</h1>

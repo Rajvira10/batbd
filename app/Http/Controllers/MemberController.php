@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Country;
 use Illuminate\Http\Request;
@@ -90,6 +91,12 @@ class MemberController extends Controller
                     }
 
                     $edit_button .= '<li>
+                                    <a href="' . route('users.user_roles', $category->id) . '" class="dropdown-item">
+                                        <i class="ri-group-fill align-bottom me-2 text-success"></i> Assign Roles
+                                    </a>
+                                </li>';
+
+                    $edit_button .= '<li>
                                         <button type="submit" class="dropdown-item delete-item-btn" onclick="deleteMember(' . $category->id . ')">
                                             <i class="ri-delete-bin-6-fill align-bottom me-2 text-danger"></i> Delete
                                         </button>
@@ -113,6 +120,55 @@ class MemberController extends Controller
             $user->account_verified_at = now();
             $user->save();
             return response()->json(['success' => 'Member approved successfully !']);
+        }
+    }
+
+    public function userRoles(Request $request, $user_id)
+    {
+        // if(!in_array('user.assign_role', session('user_permissions')))
+        // {
+        //     return redirect()->route('admin.home')->with('error', 'You are not authorized');
+        // }
+        
+        $request->session()->now('view_name', 'admin.member.members.index');
+        
+        try{
+            $member = User::find($user_id);
+
+            $roles = Role::select(
+                'id',
+                'name',
+                'description',
+            )->get();
+            
+            $member_roles_array = $member->roles->pluck('id')->toArray();
+
+            return view('admin.members.member.userRoles', compact('roles', 'member_roles_array', 'member'));
+        } catch (\Exception $e) {
+            $bug = $e->getMessage();
+            return redirect()->back()->with('error', $bug);
+        }
+    }
+
+    public function assignRoles(Request $request, $user_id)
+    {
+        $request->session()->now('view_name', 'admin.member.members.index');
+        
+        try{
+            $user = User::find($user_id);
+
+            if($user != null){
+
+                $user->roles()->sync($request->roles);
+    
+                return redirect()->route('admin.members')->with('success', 'User roles assigned successfully.');
+            }
+            else{
+                return redirect()->route('admin.members')->with('error', 'User not found.');
+            }
+        } catch (\Exception $e) {
+            $bug = $e->getMessage();
+            return redirect()->back()->with('error', $bug);
         }
     }
 }

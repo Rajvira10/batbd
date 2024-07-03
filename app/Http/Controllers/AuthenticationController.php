@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Mail\EmailVerification;
 use App\Http\Controllers\Controller;
@@ -27,7 +28,23 @@ class AuthenticationController extends Controller
         if(Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password]))
         {
             $request->session()->regenerate();
+            
+            $roles = Auth::guard('web')->user()->roles;
 
+            $roles = $roles->pluck('name')->toArray();
+
+            if(in_array('super_admin', $roles))
+            {
+                $permissions = Permission::all();
+
+                $permissions = $permissions->pluck('name')->toArray();
+
+                $request->session()->put('user_permissions', $permissions);
+
+            }else{
+                $request->session()->put('user_permissions', Auth::guard('web')->user()->getPermissions());
+            }
+            
             return redirect()->route('home')->with('message', ['type' => 'success', 'content' => 'Login successful !']);
         }
 

@@ -56,7 +56,7 @@
                 <li class="nav-item">
                     @php
                         $active = $show = '';
-                        if (in_array(session('view_name'), ['admin.member.members.index'])) {
+                        if (in_array(session('view_name'), ['admin.member.members.index', 'admin.users.role.index'])) {
                             $active = 'active';
                             $show = 'show';
                         }
@@ -71,6 +71,11 @@
                                 <a href="{{ route('admin.members') }}" target="_self"
                                     class="nav-link {{ session('view_name') == 'admin.member.members.index' ? 'active' : '' }}"
                                     data-key="t-user">Members</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('roles.index') }}" target="_self"
+                                    class="nav-link {{ session('view_name') == 'admin.users.role.index' ? 'active' : '' }}"
+                                    data-key="t-user">Roles</a>
                             </li>
                         </ul>
                     </div>
