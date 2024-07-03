@@ -27,9 +27,9 @@ class NewsController extends Controller
 
         $news = $query->orderBy('published_at', 'desc')->paginate(6);
 
-        if ($request->ajax()) {
-            return response()->json($news);
-        }
+        // if ($request->ajax()) {
+        //     return response()->json($news);
+        // }
 
         return inertia('News', [
             'initialArticles' => $news,
