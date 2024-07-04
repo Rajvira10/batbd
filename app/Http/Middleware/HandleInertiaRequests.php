@@ -48,7 +48,7 @@ class HandleInertiaRequests extends Middleware
                 ? $request->user()->only('id', 'full_name', 'email')
                 : null,
             'auth.is_admin' => fn () => $request->user()
-                ? $request->user()->roles->contains('name', 'Super Admin')
+                ? $request->user()->roles->contains('name', 'super_admin')
                 : false,
         ]);
     }

@@ -109,7 +109,7 @@ class NewsController extends Controller
                                         </li>';
                     }
                         
-                    // if($value->user_id == auth()->user()->id || auth()->user()->hasRole('Super Admin'))
+                    // if($value->user_id == auth()->user()->id || auth()->user()->hasRole('super_admin'))
                     // {
                     
                         $edit_button .= '<li>
@@ -125,7 +125,7 @@ class NewsController extends Controller
                                         </a>
                                     </li>';
 
-                    // if(auth()->user()->hasRole('Super Admin'))
+                    // if(auth()->user()->hasRole('super_admin'))
                     // {
                         $edit_button .= '<li>
                                             <button type="submit" class="dropdown-item delete-item-btn" onclick="deleteNews(' . $value->id . ')">

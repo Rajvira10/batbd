@@ -72,7 +72,7 @@ class MemberController extends Controller
 
                 
                 ->addColumn('action', function ($category) {
-                    if($category->roles->contains('name', 'Super Admin'))
+                    if($category->roles->contains('name', 'super_admin'))
                     {
                         return '';
                     }
