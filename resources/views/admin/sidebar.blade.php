@@ -147,6 +147,28 @@
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item">
+                    @php
+                        $active = $show = '';
+                        if (in_array(session('view_name'), ['admin.medias.index'])) {
+                            $active = 'active';
+                            $show = 'show';
+                        }
+                    @endphp
+                    <a class="nav-link menu-link {{ $active }}" href="#sidebarMedia" data-bs-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="sidebarMedia">
+                        <i class="ri-newspaper-line"></i> <span data-key="t-users">Media</span>
+                    </a>
+                    <div class="collapse menu-dropdown {{ $show }}" id="sidebarMedia">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.medias') }}" target="_self"
+                                    class="nav-link {{ session('view_name') == 'admin.medias.index' ? 'active' : '' }}"
+                                    data-key="t-user">Media</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </div>
         <!-- Sidebar -->

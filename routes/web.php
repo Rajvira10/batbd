@@ -3,6 +3,7 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
@@ -106,6 +107,18 @@ Route::group(['middleware' => ['auth:web']], function() {
             Route::post('unpublish', [NewsController::class, 'unpublish'])->name('admin.news.unpublish');
             Route::post('archive', [NewsController::class, 'archive'])->name('admin.news.archive');
             Route::get('archive', [NewsController::class, 'archiveIndex'])->name('admin.news.archive.index');
+        });
+
+        Route::group(['prefix' => 'media'], function(){
+            
+            Route::get('index', [MediaController::class,'index'])->name('admin.medias.index');
+            Route::get('create', [MediaController::class,'create'])->name('admin.medias.create');
+            Route::post('store', [MediaController::class,'store'])->name('admin.medias.store');
+            Route::post('store-ajax', [MediaController::class,'storeAjax'])->name('admin.medias.store_ajax');
+            Route::get('edit/{media_id}', [MediaController::class,'edit'])->name('admin.medias.edit');
+            Route::post('update', [MediaController::class,'update'])->name('admin.medias.update');
+            Route::post('delete', [MediaController::class,'destroy'])->name('admin.medias.destroy');
+
         });
     });
 });
