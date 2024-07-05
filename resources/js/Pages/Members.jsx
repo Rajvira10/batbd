@@ -3,7 +3,8 @@ import Layout from "../Components/Layout";
 import { format } from "date-fns";
 import Select from "react-select";
 import { BiSearch } from "react-icons/bi";
-import { Link, usePage } from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
+import { Pagination } from "react-bootstrap";
 
 const Members = ({ users, search, sort, user }) => {
     const [searchQuery, setSearchQuery] = useState(search || "");
@@ -29,15 +30,25 @@ const Members = ({ users, search, sort, user }) => {
 
     const renderPagination = () => {
         return users.links.map((link) => {
+            const label = link.label
+                .replace("&laquo;", "«")
+                .replace("&raquo;", "»");
+            const isDisabled = link.url === null;
+            const isActive = link.active;
+
             return (
-                <Link href={link.url} key={link.label}>
-                    <li className="page-item">
-                        <p
-                            className="page-link"
-                            dangerouslySetInnerHTML={{ __html: link.label }}
-                        ></p>
-                    </li>
-                </Link>
+                <Pagination.Item
+                    key={label}
+                    active={isActive}
+                    disabled={isDisabled}
+                    onClick={() => {
+                        if (!isDisabled) {
+                            window.location.href = link.url;
+                        }
+                    }}
+                >
+                    <span dangerouslySetInnerHTML={{ __html: label }} />
+                </Pagination.Item>
             );
         });
     };
@@ -218,13 +229,21 @@ const Members = ({ users, search, sort, user }) => {
                                                 </div>
                                             </Link>
                                         ))}
+
+                                    {users.data?.length === 0 && (
+                                        <div className="text-center w-100">
+                                            <h3>No members found</h3>
+                                        </div>
+                                    )}
                                 </div>
 
-                                <nav>
-                                    <ul className="pagination justify-content-center mt-4">
-                                        {renderPagination()}
-                                    </ul>
-                                </nav>
+                                <div className="d-flex justify-content-end mt-4">
+                                    {users.data?.length !== 0 && (
+                                        <Pagination>
+                                            {renderPagination()}
+                                        </Pagination>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>

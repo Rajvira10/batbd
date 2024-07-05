@@ -80,6 +80,18 @@ const Navbar = () => {
                             <li className="nav-item">
                                 <Link
                                     className={`nav-link ${
+                                        currentUrl.includes("/gallery")
+                                            ? "active"
+                                            : ""
+                                    }`}
+                                    href="/gallery"
+                                >
+                                    Gallery
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link
+                                    className={`nav-link ${
                                         currentUrl.includes("/disclosures")
                                             ? "active"
                                             : ""
@@ -88,7 +100,8 @@ const Navbar = () => {
                                 >
                                     Disclosures
                                 </Link>
-                            </li>{" "}
+                            </li>
+
                             <li className="nav-item">
                                 <Link
                                     className={`nav-link ${

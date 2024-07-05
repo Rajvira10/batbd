@@ -277,3 +277,23 @@ input[type="date"] {
     padding: 3px;
     background-color: #f9f9f9 !important;
 }
+
+.media {
+    min-height: 100vh;
+}
+.media .image-container {
+    position: relative;
+    overflow: hidden;
+    height: 100px;
+    width: 100%;
+}
+
+.media .image-container img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.media .card {
+    height: 100%;
+}

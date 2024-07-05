@@ -7,7 +7,6 @@ import { BiUser } from "react-icons/bi";
 
 const Layout = ({ children }) => {
     const { auth } = usePage().props;
-    console.log(auth);
     return (
         <div>
             <Navbar />

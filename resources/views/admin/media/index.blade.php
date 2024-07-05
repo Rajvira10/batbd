@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('admin.layout')
 @section('title', 'Media')
 
 @section('content')
@@ -14,24 +14,25 @@
                         @endif
                         <div class="card">
                             <div class="card-body d-flex justify-content-between align-items-center">
-                                <h4>Media Library</h4>
+                                <h4>Gallery</h4>
                                 <div class="d-flex align-items-center">
                                     <input type="text" id="searchInput" class="form-control me-4 w-100"
-                                        placeholder="Search media...">
-                                    @if (auth()->user()->authorize('medias.create'))
-                                        <button class="btn d-flex btn-success" data-bs-toggle="modal"
-                                            data-bs-target="#addMediaModal">
-                                            <i class="ri-add-line align-bottom me-1"></i>
-                                            Add</button>
-                                    @endif
+                                        placeholder="Search gallery...">
+                                    {{-- @if (auth()->user()->authorize('medias.create')) --}}
+                                    <button class="btn d-flex btn-success" data-bs-toggle="modal"
+                                        data-bs-target="#addMediaModal">
+                                        <i class="ri-add-line align-bottom me-1"></i>
+                                        Add</button>
+                                    {{-- @endif --}}
                                 </div>
                             </div>
                         </div>
                         <div class="media-grid">
                             @foreach ($medias as $item)
                                 <div class="media-item mb-4" style="" data-name="{{ $item->name }}">
-                                    <img src="{{ $item->absolute_path }}" class="card-img-top" alt="{{ $item->name }}"
-                                        data-bs-toggle="modal" data-bs-target="#mediaModal" data-id="{{ $item->id }}">
+                                    <img src="{{ asset($item->relative_path) }}" class="card-img-top"
+                                        alt="{{ $item->name }}" data-bs-toggle="modal" data-bs-target="#mediaModal"
+                                        data-id="{{ $item->id }}">
                                 </div>
                             @endforeach
 
@@ -48,7 +49,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="addMediaModalLabel">Add New Media</h5>
+                            <h5 class="modal-title" id="addMediaModalLabel">Add New Item</h5>
                         </div>
                         <div class="modal-body">
                             <form id="addMediaForm" action="{{ route('admin.medias.store') }}" method="POST"
@@ -62,12 +63,9 @@
                                         <div id="dragDropArea" class="mt-3">Click or Drop files here</div>
                                         <div id="fileList" class="mt-3"></div>
                                     </div>
-                                    <span class="info-text">* Max File Size:
-                                        {{ app('common')->settings()->max_upload_size }}KB | File Type:
-                                        jpg, jpeg, png, svg</span>
                                 </div>
                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary">Upload Media</button>
+                                <button type="submit" class="btn btn-primary">Upload</button>
                             </form>
                         </div>
                     </div>
@@ -215,6 +213,7 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         data: {
+                            _token: '{{ csrf_token() }}',
                             media_id: mediaId,
                             name: $('#mediaTitle').val()
                         },
@@ -235,7 +234,7 @@
 
                 $('#deleteMedia').off('click').on('click', function() {
                     $.ajax({
-                        url: '{{ route('medias.destroy') }}',
+                        url: '{{ route('admin.medias.destroy') }}',
                         type: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

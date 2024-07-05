@@ -15,9 +15,10 @@ class MediaRepository
 
     public function store($request)
     {
+
         $request->validate([
             'file' => 'required|array',
-            'file.*' => 'required|file|mimes:jpeg,png,jpg,gif,svg|max:'. app('common')->settings()->max_upload_size
+            'file.*' => 'required|file|mimes:jpeg,png,jpg,gif,svg'
         ]);
 
         try {

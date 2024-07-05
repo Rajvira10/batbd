@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Media;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Repositories\MediaRepository;
@@ -17,11 +18,22 @@ class MediaController extends Controller
 
     public function index(Request $request)
     {
+        $medias = Media::paginate(40);
+
+        if($request->page){
+            return response()->json($medias);
+        }
+
+        return inertia('Media', ['medias' => $medias]);
+    }
+
+    public function admin(Request $request)
+    {
         $request->session()->now('view_name', 'admin.medias.index');
         try{
             $medias = $this->mediaRepository->index();
 
-            return view('media.index', compact('medias'));
+            return view('admin.media.index', compact('medias'));
         } catch (\Exception $e) {
             $bug = $e->getMessage();
             return redirect()->back()->with('error', $bug);
@@ -33,7 +45,7 @@ class MediaController extends Controller
         $response = $this->mediaRepository->store($request);
 
         if($response['status'] == 'success'){
-            return redirect()->route('medias.index')->with('success', $response['message']);
+            return redirect()->route('admin.medias')->with('success', $response['message']);
         }
         else{
             return redirect()->back()->with('error', $response['message']);

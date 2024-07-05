@@ -66,6 +66,8 @@ Route::group(['middleware' => ['auth:web']], function() {
 
     Route::get('/members/{user}', [MemberController::class, 'show'])->name('members.show');
 
+    Route::get('/gallery', [MediaController::class, 'index'])->name('gallery');
+
     Route::get('/disclosures', [DisclosureController::class, 'index'])->name('disclosures');
 
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
@@ -128,7 +130,7 @@ Route::group(['middleware' => ['auth:web']], function() {
 
         Route::group(['prefix' => 'media'], function(){
             
-            Route::get('index', [MediaController::class,'index'])->name('admin.medias.index');
+            Route::get('index', [MediaController::class,'admin'])->name('admin.medias');
             Route::get('create', [MediaController::class,'create'])->name('admin.medias.create');
             Route::post('store', [MediaController::class,'store'])->name('admin.medias.store');
             Route::post('store-ajax', [MediaController::class,'storeAjax'])->name('admin.medias.store_ajax');

@@ -17,6 +17,12 @@
 
             <div class="d-flex align-items-center">
                 <div class="ms-1 header-item d-none d-sm-flex">
+                    <a href="{{ route('home') }}" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle">
+                        <i class='bx bx-home fs-22'></i>
+                    </a>
+                </div>
+
+                <div class="ms-1 header-item d-none d-sm-flex">
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
                         data-toggle="fullscreen">
                         <i class='bx bx-fullscreen fs-22'></i>
@@ -36,8 +42,7 @@
                         aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
                             <img class="rounded-circle header-profile-user"
-                                src="{{ asset('admin-assets/images/users/avatar-demo.png') }}"
-                                alt="Header Avatar">
+                                src="{{ asset('admin-assets/images/users/avatar-demo.png') }}" alt="Header Avatar">
                             <span class="text-start ms-xl-2">
                                 <span
                                     class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ auth()->user()->first_name }}
