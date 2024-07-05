@@ -15,7 +15,7 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!auth()->user()->roles->contains('name', 'Super Admin'))
+        if(!auth()->user()->roles->contains('name', 'super_admin'))
         {
             return redirect()->route('home');
         }

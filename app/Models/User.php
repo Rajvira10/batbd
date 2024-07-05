@@ -61,4 +61,48 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->roles->contains('name', $role);
     }
+
+    
+    public function hasPermission($permission_name)
+    {
+        foreach($this->roles as $role)
+        {
+            if($role->name == "super_admin")
+            {
+                return true;
+            }
+
+            foreach($role->permissions as $permission)
+            {
+                if($permission->name == $permission_name)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public function getPermissions()
+    {
+        $permissions = [];
+
+        foreach($this->roles as $role)
+        {
+            if($role->name == "super_admin")
+            {
+                $permissions = "all";
+
+                break;
+            }
+
+            foreach($role->permissions as $permission)
+            {
+                $permissions[] = $permission->name;
+            }
+        }
+
+        return $permissions;
+    }
 }

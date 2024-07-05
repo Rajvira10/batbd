@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
         $user->save();
 
         $role = new Role();
-        $role->name = 'Super Admin';
+        $role->name = 'super_admin';
         $role->save();
 
         $user->roles()->attach($role->id);

@@ -15,15 +15,13 @@ const News = ({ initialArticles, filters }) => {
 
     const fetchMoreArticles = async () => {
         if (!hasMore || !nextPageUrl) return;
-
         try {
-            const response = await axios.get(nextPageUrl, {
+            const response = await axios.get(nextPageUrl+"&ajax=1", {
                 headers: {
                     Accept: "application/json",
                 },
             });
             const data = response.data;
-
             setArticles((prevArticles) => [...prevArticles, ...data.data]);
             setNextPageUrl(data.next_page_url);
             setHasMore(!!data.next_page_url);

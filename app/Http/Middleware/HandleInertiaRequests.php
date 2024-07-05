@@ -44,6 +44,12 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'message' => fn () => $request->session()->get('message')
             ],
+            'auth.user' => fn () => $request->user()
+                ? $request->user()->only('id', 'full_name', 'email')
+                : null,
+            'auth.is_admin' => fn () => $request->user()
+                ? $request->user()->roles->contains('name', 'super_admin')
+                : false,
         ]);
     }
 }
