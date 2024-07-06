@@ -108,7 +108,17 @@ class AuthenticationController extends Controller
     {
         $email = $user->email;
         $user_verified = $user->hasVerifiedEmail();
-        return inertia('EmailConfirmation', ['email' => $email, 'user_verified' => $user_verified]);
+        $member_id = $user->id;
+        return inertia('EmailConfirmation', ['email' => $email, 'user_verified' => $user_verified, 'member_id' => $member_id]);
+    }
+
+    public function resendEmailVerification(Request $request, $user_id)
+    {
+        $user = User::findOrFail($user_id);
+        
+        Mail::to($user->email)->send(new EmailVerification($user));
+
+        return redirect()->route('email-confirmation', $user)->with('message', ['type' => 'success', 'content' => 'Verification link sent !']);
     }
 
     public function logout(Request $request)

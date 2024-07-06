@@ -111,13 +111,7 @@ function Member() {
     return (
         <Layout>
             <div>
-                <div
-                    className=""
-                    style={{
-                        width: "70%",
-                        margin: "0 auto",
-                    }}
-                >
+                <div className="site-container">
                     <div className="py-5">
                         <div className="card p-2">
                             <div className="card-body">
@@ -128,12 +122,7 @@ function Member() {
                                             "https://picsum.photos/200/300"
                                         }
                                         alt="Cover"
-                                        className="w-100"
-                                        style={{
-                                            height: "203px",
-                                            objectFit: "cover",
-                                            borderRadius: "10px",
-                                        }}
+                                        className="coverImage"
                                     />
                                     {isEditing && (
                                         <div
@@ -167,13 +156,7 @@ function Member() {
                                         </div>
                                     )}
                                     {!isEditing && (
-                                        <div
-                                            className="mb-3 ms-3 text-white position-absolute"
-                                            style={{
-                                                bottom: "0px",
-                                                right: "10px",
-                                            }}
-                                        >
+                                        <div className="member-since">
                                             <p>
                                                 Member Since{" "}
                                                 {format(
@@ -183,10 +166,7 @@ function Member() {
                                             </p>
                                         </div>
                                     )}
-                                    <div
-                                        className="profile-info d-flex align-items-end p-3 position-absolute"
-                                        style={{ bottom: "-30px", left: "0px" }}
-                                    >
+                                    <div className="profileImage">
                                         <img
                                             src={
                                                 profileImage ||
@@ -194,10 +174,6 @@ function Member() {
                                             }
                                             alt="Profile"
                                             style={{
-                                                width: "118px",
-                                                height: "118px",
-                                                borderRadius: "10px",
-                                                position: "relative",
                                                 cursor: isEditing
                                                     ? "pointer"
                                                     : "default",
@@ -225,7 +201,7 @@ function Member() {
                                                 />
                                             </>
                                         )}
-                                        <div className="mb-4 ms-3 text-white">
+                                        <div className="mb-4 ms-3 text-white profile-info">
                                             <h4 style={{ fontSize: "20px" }}>
                                                 {user.full_name}
                                             </h4>
@@ -235,7 +211,24 @@ function Member() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="row mt-5">
+                                {!isEditing && (
+                                    <div className="member-since-mobile mt-5 text-center">
+                                        <h4>{user.full_name} </h4>
+                                        <p
+                                            style={{
+                                                color: "gray",
+                                                fontSize: "12px",
+                                            }}
+                                        >
+                                            Member ID: {user.id} | Member Since{" "}
+                                            {format(
+                                                new Date(user.created_at),
+                                                "MMMM yyyy"
+                                            )}
+                                        </p>
+                                    </div>
+                                )}
+                                <div className="row mt-4 mt-lg-5">
                                     <div className="col-xl-6">
                                         <div className="row">
                                             <div className="col-md-6">
@@ -786,6 +779,7 @@ function Member() {
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div
                                             className="mt-2 p-3"
                                             style={{

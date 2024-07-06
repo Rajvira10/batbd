@@ -128,13 +128,7 @@ function Home() {
     return (
         <Layout>
             <div>
-                <div
-                    className=""
-                    style={{
-                        width: "70%",
-                        margin: "0 auto",
-                    }}
-                >
+                <div className="site-container">
                     <div className="py-5">
                         <div className="card p-2">
                             <div className="card-body">
@@ -145,7 +139,7 @@ function Home() {
                                             : "My Profile"}{" "}
                                     </h2>
                                     {isEditing ? (
-                                        <div>
+                                        <div className="home__edit-btns">
                                             <button
                                                 className="btn btn-light px-4 py-2 "
                                                 style={{
@@ -168,15 +162,17 @@ function Home() {
                                             </button>
                                         </div>
                                     ) : (
-                                        <div
-                                            className="btn btn-light px-4 py-2"
-                                            style={{
-                                                borderRadius: "50px",
-                                                border: "1px solid #11111126",
-                                            }}
-                                            onClick={handleEditClick}
-                                        >
-                                            Edit
+                                        <div className="home__edit-btns">
+                                            <div
+                                                className="btn btn-light px-4 py-2"
+                                                style={{
+                                                    borderRadius: "50px",
+                                                    border: "1px solid #11111126",
+                                                }}
+                                                onClick={handleEditClick}
+                                            >
+                                                Edit
+                                            </div>
                                         </div>
                                     )}
                                 </div>
@@ -187,12 +183,7 @@ function Home() {
                                             "https://picsum.photos/200/300"
                                         }
                                         alt="Cover"
-                                        className="w-100"
-                                        style={{
-                                            height: "203px",
-                                            objectFit: "cover",
-                                            borderRadius: "10px",
-                                        }}
+                                        className="coverImage"
                                     />
                                     {isEditing && (
                                         <div
@@ -207,7 +198,9 @@ function Home() {
                                                 htmlFor="coverImageUpload"
                                                 style={{ cursor: "pointer" }}
                                             >
-                                                <u>Upload cover photo</u>
+                                                <u className="mobile-hidden">
+                                                    Upload cover photo
+                                                </u>
                                                 <FaArrowCircleUp
                                                     style={{
                                                         fontSize: "30px",
@@ -226,13 +219,7 @@ function Home() {
                                         </div>
                                     )}
                                     {!isEditing && (
-                                        <div
-                                            className="mb-3 ms-3 text-white position-absolute"
-                                            style={{
-                                                bottom: "0px",
-                                                right: "10px",
-                                            }}
-                                        >
+                                        <div className="member-since">
                                             <p>
                                                 Member Since{" "}
                                                 {format(
@@ -242,36 +229,48 @@ function Home() {
                                             </p>
                                         </div>
                                     )}
-                                    <div
-                                        className="profile-info d-flex align-items-end p-3 position-absolute"
-                                        style={{ bottom: "-30px", left: "0px" }}
-                                    >
-                                        <img
-                                            src={
-                                                profileImage ||
-                                                "https://picsum.photos/200/300"
-                                            }
-                                            alt="Profile"
-                                            style={{
-                                                width: "118px",
-                                                height: "118px",
-                                                borderRadius: "10px",
-                                                position: "relative",
-                                                cursor: isEditing
-                                                    ? "pointer"
-                                                    : "default",
-                                            }}
-                                            onClick={
-                                                isEditing
-                                                    ? () =>
-                                                          document
-                                                              .getElementById(
-                                                                  "profileImageUpload"
-                                                              )
-                                                              .click()
-                                                    : null
-                                            }
-                                        />
+                                    <div className="profileImage">
+                                        <div className="position-relative">
+                                            <img
+                                                src={
+                                                    profileImage ||
+                                                    "https://picsum.photos/200/300"
+                                                }
+                                                alt="Profile"
+                                                style={{
+                                                    cursor: isEditing
+                                                        ? "pointer"
+                                                        : "default",
+                                                }}
+                                                onClick={
+                                                    isEditing
+                                                        ? () =>
+                                                              document
+                                                                  .getElementById(
+                                                                      "profileImageUpload"
+                                                                  )
+                                                                  .click()
+                                                        : null
+                                                }
+                                            />
+                                            {isEditing && (
+                                                <div
+                                                    className="text-white position-absolute edit-icon"
+                                                    
+                                                >
+                                                    <label htmlFor="profileImageUpload">
+                                                        <FaArrowCircleUp
+                                                            style={{
+                                                                fontSize:
+                                                                    "30px",
+                                                                marginLeft:
+                                                                    "8px",
+                                                            }}
+                                                        />
+                                                    </label>
+                                                </div>
+                                            )}
+                                        </div>
                                         {isEditing && (
                                             <>
                                                 <input
@@ -284,7 +283,7 @@ function Home() {
                                                 />
                                             </>
                                         )}
-                                        <div className="mb-4 ms-3 text-white">
+                                        <div className="mb-4 ms-3 text-white profile-info">
                                             <h4 style={{ fontSize: "20px" }}>
                                                 {user.full_name}
                                             </h4>
@@ -294,7 +293,24 @@ function Home() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="row mt-5">
+                                {!isEditing && (
+                                    <div className="member-since-mobile mt-5 text-center">
+                                        <h4>{user.full_name} </h4>
+                                        <p
+                                            style={{
+                                                color: "gray",
+                                                fontSize: "12px",
+                                            }}
+                                        >
+                                            Member ID: {user.id} | Member Since{" "}
+                                            {format(
+                                                new Date(user.created_at),
+                                                "MMMM yyyy"
+                                            )}
+                                        </p>
+                                    </div>
+                                )}
+                                <div className="row mt-4 mt-lg-5">
                                     <div className="col-xl-6">
                                         <div className="row">
                                             <div className="col-md-6">
@@ -1000,6 +1016,47 @@ function Home() {
                                 </div>
                             </div>
                         </div>
+                        {isEditing ? (
+                            <div className="home__edit-btns_mobile">
+                                <button
+                                    className="btn btn-light px-4 py-2 "
+                                    style={{
+                                        borderRadius: "50px",
+                                        width: "fit-content",
+                                    }}
+                                    onClick={handleCancelClick}
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    className="btn btn-primary px-4 py-2 ms-2"
+                                    style={{
+                                        borderRadius: "50px",
+                                        border: "1px solid #11111126",
+                                        backgroundColor: "#0e2b63",
+                                        width: "fit-content",
+                                    }}
+                                    onClick={handleFormSubmit}
+                                >
+                                    Update
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="home__edit-btns_mobile">
+                                <div
+                                    className="btn btn-light px-4 py-2"
+                                    style={{
+                                        borderRadius: "50px",
+                                        border: "1px solid #11111126",
+                                        marginLeft: "auto",
+                                        width: "fit-content",
+                                    }}
+                                    onClick={handleEditClick}
+                                >
+                                    Edit
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

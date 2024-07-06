@@ -1,6 +1,16 @@
-import React from "react";
+import { usePage } from "@inertiajs/react";
+import React, { useEffect } from "react";
+import { toast } from "react-toastify";
 
-const Login = ({ email }) => {
+const Login = ({ email, member_id }) => {
+    const { props } = usePage();
+    const { message } = props.flash;
+
+    useEffect(() => {
+        if (message?.type == "success") {
+            toast.success(message.content);
+        }
+    }, [message]);
     return (
         <body className="bg-main">
             <div className="container">
@@ -23,13 +33,21 @@ const Login = ({ email }) => {
                     <div className="col-xl-6 d-flex justify-content-center justify-content-xl-end mt-5 mt-xl-0">
                         <div className="frm-wrap w-100">
                             <div className="card-body">
-                                <h4>Email Confirmed</h4>
+                                <h4>Email Confirmation</h4>
                                 <p className="mt-3">
                                     A verification mail sent to{" "}
                                     <span class="text-primary">{email} </span>
                                     to confirm the validity of your email
                                     address. Go to inbox and follow the link to
                                     continue next step.
+                                </p>
+                            </div>
+                            <div className="card-footer mt-5">
+                                <p>
+                                    Didn't receive the email?{" "}
+                                    <a href={`/email/resend/${member_id}`}>
+                                        Send again
+                                    </a>
                                 </p>
                             </div>
                         </div>

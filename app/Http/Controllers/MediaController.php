@@ -19,12 +19,12 @@ class MediaController extends Controller
     public function index(Request $request)
     {
         $medias = Media::paginate(40);
-
+        $user = auth()->user();
         if($request->page){
             return response()->json($medias);
         }
 
-        return inertia('Media', ['medias' => $medias]);
+        return inertia('Media', ['medias' => $medias, 'user'=>$user]);
     }
 
     public function admin(Request $request)

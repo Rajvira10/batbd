@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import Layout from "../Components/Layout";
 import { Pagination, Modal } from "react-bootstrap";
 import axios from "axios";
+import AccountNotVerified from "../Components/AccountNotVerified";
 
-const Media = () => {
+const Media = ({ user }) => {
     const [medias, setMedias] = useState({
         data: [],
         current_page: 1,
@@ -38,6 +39,14 @@ const Media = () => {
     useEffect(() => {
         fetchMedia();
     }, []);
+
+    if (user.account_verified_at === null) {
+        return (
+            <Layout>
+                <AccountNotVerified />
+            </Layout>
+        );
+    }
 
     return (
         <Layout>

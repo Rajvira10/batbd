@@ -13,13 +13,7 @@ const Contact = () => {
     return (
         <Layout>
             <div className="pt-5"></div>
-            <div
-                className="card mb-5"
-                style={{
-                    width: "50%",
-                    margin: "0 auto",
-                }}
-            >
+            <div className="card mb-5 contact-container">
                 <div className="card-body p-5 ">
                     <h4 className="text-center">Contact</h4>
                     <br />

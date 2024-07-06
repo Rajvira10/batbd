@@ -18,6 +18,7 @@ const Disclosure = ({ disclosure }) => {
                         <div className="row">
                             <div className="col-md-6 px-4">
                                 <h5>Terms and Conditions</h5>
+                                <hr />
                                 <br />
                                 <div
                                     dangerouslySetInnerHTML={{
@@ -25,8 +26,9 @@ const Disclosure = ({ disclosure }) => {
                                     }}
                                 />
                             </div>
-                            <div className="border-start border-2 col-md-6 px-4">
+                            <div className="col-md-6 px-4 mobile-border">
                                 <h5>Privacy Policy</h5>
+                                <hr />
                                 <br />
                                 <div
                                     dangerouslySetInnerHTML={{

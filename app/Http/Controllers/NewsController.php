@@ -20,6 +20,7 @@ class NewsController extends Controller
                     ->orWhere('content', 'like', '%' . $request->search . '%');
             });
         }
+        $user = auth()->user();
 
         if ($request->filled('date')) {
             $query->whereDate('published_at', $request->date);
@@ -34,6 +35,7 @@ class NewsController extends Controller
 
         return inertia('News', [
             'initialArticles' => $news,
+            'user' => $user,
             'filters' => $request->only(['search', 'date']),
         ]);
     }

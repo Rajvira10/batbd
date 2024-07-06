@@ -49,11 +49,7 @@ Route::group(['middleware' => ['auth:web']], function() {
         return inertia('EmailVerified');
     })->name('verification.verify');
 
-    Route::post('/email/resend', function (Request $request) {
-        $request->user()->sendEmailVerificationNotification();
-
-        return back()->with('message', 'Verification link sent!');
-    })->middleware(['throttle:6,1'])->name('verification.send');
+    Route::get('/email/resend/{user}', [AuthenticationController::class, 'resendEmailVerification'])->name('verification.resend');
 
 
     Route::get('logout', [AuthenticationController::class, 'logout'])->name('logout');

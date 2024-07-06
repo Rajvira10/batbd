@@ -4,8 +4,9 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import axios from "axios";
 import { Inertia } from "@inertiajs/inertia";
 import { format } from "date-fns";
+import AccountNotVerified from "../Components/AccountNotVerified";
 
-const News = ({ initialArticles, filters }) => {
+const News = ({ initialArticles, filters, user }) => {
     const [articles, setArticles] = useState(initialArticles?.data || []);
     const [nextPageUrl, setNextPageUrl] = useState(
         initialArticles?.next_page_url || null
@@ -16,7 +17,7 @@ const News = ({ initialArticles, filters }) => {
     const fetchMoreArticles = async () => {
         if (!hasMore || !nextPageUrl) return;
         try {
-            const response = await axios.get(nextPageUrl+"&ajax=1", {
+            const response = await axios.get(nextPageUrl + "&ajax=1", {
                 headers: {
                     Accept: "application/json",
                 },
@@ -62,12 +63,17 @@ const News = ({ initialArticles, filters }) => {
         return format(new Date(dateString), "hh:mmaaa dd MMMM yyyy");
     };
 
+    if (user.account_verified_at === null) {
+        return (
+            <Layout>
+                <AccountNotVerified />
+            </Layout>
+        );
+    }
+
     return (
         <Layout>
-            <div
-                className="container"
-                style={{ width: "70%", margin: "0px auto" }}
-            >
+            <div className="site-container">
                 <div className="row mt-4 mb-2">
                     <div className="col-md-4">
                         <h1>News</h1>
@@ -157,7 +163,7 @@ const News = ({ initialArticles, filters }) => {
                         </div>
                     </div>
                     <div
-                        className="col-md-4"
+                        className="col-md-4 mobile-hidden"
                         style={{
                             maxHeight: "80vh",
                             overflowY: "auto",

@@ -27,7 +27,7 @@ class MemberController extends Controller
         }
 
         $users = $query->where('id', '!=', auth()->id())
-            ->where('email_verified_at', '!=', null);
+            ->where('account_verified_at', '!=', null);
 
         $users = $query->paginate(24);
 

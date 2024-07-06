@@ -1,8 +1,12 @@
 import { Link } from "@inertiajs/react";
-import React from "react";
+import React, { useState } from "react";
+import { CgClose } from "react-icons/cg";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const Navbar = () => {
     const currentUrl = window.location.href;
+    const [mobileNavbar, showMobileNavbar] = useState(false);
+
     return (
         <header>
             <nav
@@ -13,7 +17,7 @@ const Navbar = () => {
                 }}
             >
                 <div className="container-fluid">
-                    <div className="d-flex align-items-center">
+                    <div className="header-container">
                         <Link className="navbar-brand" href="/">
                             <img
                                 className="logo-lg"
@@ -25,21 +29,21 @@ const Navbar = () => {
                             />
                         </Link>
                         <p className="ps-2">
-                            Reconnect and Collaborate with <br /> Your
-                            Ex-Colleagues at BAT BD
+                            Reconnect and Collaborate with Your Ex-Colleagues at
+                            BAT BD
                         </p>
                     </div>
-                    <button
-                        className="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarNav"
-                        aria-controls="navbarNav"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
+                    <div
+                        className="hamburger"
+                        onClick={() => {
+                            showMobileNavbar(true);
+                        }}
                     >
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
+                        <GiHamburgerMenu
+                            style={{ fontSize: "30px", cursor: "pointer" }}
+                        />
+                    </div>
+
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav ms-auto">
                             <li className="nav-item">
@@ -115,6 +119,83 @@ const Navbar = () => {
                                 </Link>
                             </li>
                         </ul>
+                    </div>
+
+                    <div className={`mobile-navbar ${mobileNavbar && "show"}`}>
+                        <div className="mobile-navbar-container">
+                            <div
+                                className="cross"
+                                onClick={() => showMobileNavbar(false)}
+                            >
+                                <CgClose
+                                    style={{
+                                        position: "absolute",
+                                        top: "20px",
+                                        left: "20px",
+                                        color: "white",
+                                        fontSize: "30px",
+                                        cursor: "pointer",
+                                    }}
+                                />
+                            </div>
+                            <Link
+                                className={`nav-link ${
+                                    currentUrl === "/" ? "active" : ""
+                                }`}
+                                aria-current="page"
+                                href="/"
+                            >
+                                My Profile
+                            </Link>
+                            <Link
+                                className={`nav-link ${
+                                    currentUrl.includes("/members")
+                                        ? "active"
+                                        : ""
+                                }`}
+                                href="/members"
+                            >
+                                Members
+                            </Link>
+                            <Link
+                                className={`nav-link ${
+                                    currentUrl.includes("/news") ? "active" : ""
+                                }`}
+                                href="/news"
+                            >
+                                News
+                            </Link>
+                            <Link
+                                className={`nav-link ${
+                                    currentUrl.includes("/gallery")
+                                        ? "active"
+                                        : ""
+                                }`}
+                                href="/gallery"
+                            >
+                                Gallery
+                            </Link>
+                            <Link
+                                className={`nav-link ${
+                                    currentUrl.includes("/disclosures")
+                                        ? "active"
+                                        : ""
+                                }`}
+                                href="/disclosures"
+                            >
+                                Disclosures
+                            </Link>
+                            <Link
+                                className={`nav-link ${
+                                    currentUrl.includes("/contact")
+                                        ? "active"
+                                        : ""
+                                }`}
+                                href="/contact"
+                            >
+                                Contact
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </nav>

@@ -5,6 +5,7 @@ import Select from "react-select";
 import { BiSearch } from "react-icons/bi";
 import { Link } from "@inertiajs/react";
 import { Pagination } from "react-bootstrap";
+import AccountNotVerified from "../Components/AccountNotVerified";
 
 const Members = ({ users, search, sort, user }) => {
     const [searchQuery, setSearchQuery] = useState(search || "");
@@ -56,31 +57,7 @@ const Members = ({ users, search, sort, user }) => {
     if (user.account_verified_at === null) {
         return (
             <Layout>
-                <div style={{ minHeight: "80vh" }}>
-                    <div className="pt-5"></div>
-                    <div
-                        className="card"
-                        style={{ width: "70%", margin: "0px auto" }}
-                    >
-                        <div className="card-body">
-                            <h2
-                                className="text-center py-3"
-                                style={{ fontSize: 32 }}
-                            >
-                                Your account is not approved yet by admin
-                            </h2>
-                            <p className="text-center py-3">
-                                You will access your profile whenever the admin
-                                approved your account. Please be <br /> patient.
-                                If you have any query please{" "}
-                                <Link href="/contact">
-                                    <u>Contact</u>
-                                </Link>
-                                .
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                <AccountNotVerified/>
             </Layout>
         );
     }
@@ -88,63 +65,77 @@ const Members = ({ users, search, sort, user }) => {
     return (
         <Layout>
             <div style={{ backgroundColor: "#F5F5F5", minHeight: "100vh" }}>
-                <div className="" style={{ width: "70%", margin: "0 auto" }}>
+                <div className="site-container">
                     <div className="py-5">
                         <div className="card p-2">
                             <div className="card-body">
                                 <div className="row">
-                                    <h3 className="col-md-6 ps-4">Members</h3>
-                                    <div className="col-md-6 row">
-                                        <div className="col-md-6 d-flex align-items-center position-relative">
+                                    <h3 className="col-12 col-md-6 ps-4 text-center-mobile">
+                                        Members
+                                    </h3>
+                                    <div className="col-12 col-md-6 row">
+                                        <div className="col-12 col-md-6 d-flex align-items-center mb-3 mb-md-0">
                                             <form
                                                 onSubmit={handleSearchSubmit}
-                                                style={{
-                                                    display: "flex",
-                                                    width: "100%",
-                                                }}
+                                                style={{ width: "100%" }}
                                             >
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
-                                                    placeholder="Search"
-                                                    value={searchQuery}
-                                                    onChange={
-                                                        handleSearchChange
-                                                    }
+                                                <div
                                                     style={{
-                                                        width: "300px",
-                                                        fontSize: 14,
-                                                    }}
-                                                />
-                                                <button
-                                                    type="submit"
-                                                    style={{
-                                                        border: "none",
-                                                        background: "none",
-                                                        position: "absolute",
-                                                        right: "18px",
-                                                        top: "8px",
+                                                        position: "relative",
+                                                        width: "100%",
                                                     }}
                                                 >
-                                                    <BiSearch
+                                                    <input
+                                                        type="text"
+                                                        className="form-control"
+                                                        placeholder="Search"
+                                                        value={searchQuery}
+                                                        onChange={
+                                                            handleSearchChange
+                                                        }
                                                         style={{
-                                                            fontSize: "20px",
-                                                            color: "#000000BF",
+                                                            width: "100%",
+                                                            paddingRight:
+                                                                "40px",
+                                                            fontSize: 14,
                                                         }}
                                                     />
-                                                </button>
+                                                    <button
+                                                        type="submit"
+                                                        style={{
+                                                            border: "none",
+                                                            background: "none",
+                                                            position:
+                                                                "absolute",
+                                                            right: "10px",
+                                                            top: "50%",
+                                                            transform:
+                                                                "translateY(-50%)",
+                                                            padding: 0,
+                                                        }}
+                                                    >
+                                                        <BiSearch
+                                                            style={{
+                                                                fontSize:
+                                                                    "20px",
+                                                                color: "#000000BF",
+                                                            }}
+                                                        />
+                                                    </button>
+                                                </div>
                                             </form>
                                         </div>
 
                                         <div
-                                            className="col-md-6 d-flex align-items-center"
+                                            className="col-12 col-md-6 d-flex align-items-center justify-content-center justify-content-md-start"
                                             style={{ fontSize: 14 }}
                                         >
-                                            <p className="pe-3">Sort By:</p>{" "}
+                                            <p className="pe-3 mb-0">
+                                                Sort By:
+                                            </p>
                                             <Select
                                                 name=""
                                                 id=""
-                                                className=""
                                                 options={[
                                                     {
                                                         value: "date_of_joining",
@@ -170,6 +161,7 @@ const Members = ({ users, search, sort, user }) => {
                                                         : null
                                                 }
                                                 onChange={handleSortChange}
+                                                style={{ width: "1000px" }}
                                             />
                                         </div>
                                     </div>
@@ -188,7 +180,10 @@ const Members = ({ users, search, sort, user }) => {
                                             >
                                                 <div className="mb-4 text-center">
                                                     <img
-                                                        src={user.profile_image}
+                                                        src={
+                                                            user.profile_image ??
+                                                            "https://picsum.photos/113"
+                                                        }
                                                         alt={user.full_name}
                                                         height={113}
                                                         width={113}
