@@ -665,6 +665,40 @@ function Member() {
                                                 </div>
                                             </div>
                                         </div>
+                                        <div className="row">
+                                            <div className="col-md-12">
+                                                <div className="mb-3">
+                                                    <label className="form-label">
+                                                        LinkedIn Profile
+                                                    </label>
+                                                    {isEditing ? (
+                                                        <textarea
+                                                            className="form-control"
+                                                            rows={7}
+                                                            value={
+                                                                data.linkedin_profile
+                                                            }
+                                                            onChange={(e) =>
+                                                                setData(
+                                                                    "fun_fact_about_you",
+                                                                    e.target
+                                                                        .value
+                                                                )
+                                                            }
+                                                        />
+                                                    ) : (
+                                                        <div
+                                                            style={{
+                                                                color: "#11111199",
+                                                            }}
+                                                        >
+                                                            {user.linkedin_profile ??
+                                                                "N/A"}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div className="col-xl-6">
                                         <div
@@ -837,6 +871,8 @@ function Member() {
                                                         )}
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div className="row mb-3">
                                                 <div className="col-md-6">
                                                     <div className="mb-3">
                                                         <label className="form-label">
@@ -864,6 +900,39 @@ function Member() {
                                                                 }}
                                                             >
                                                                 {user.first_child_name ??
+                                                                    "N/A"}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="mb-3">
+                                                        <label className="form-label">
+                                                            First child's
+                                                            birthday
+                                                        </label>
+                                                        {isEditing ? (
+                                                            <Flatpickr
+                                                                type="date"
+                                                                className="form-control"
+                                                                value={
+                                                                    data.first_child_dob
+                                                                }
+                                                                onChange={(e) =>
+                                                                    setData(
+                                                                        "first_child_dob",
+                                                                        e.target
+                                                                            .value
+                                                                    )
+                                                                }
+                                                            />
+                                                        ) : (
+                                                            <div
+                                                                style={{
+                                                                    color: "#11111199",
+                                                                }}
+                                                            >
+                                                                {user.first_child_dob ??
                                                                     "N/A"}
                                                             </div>
                                                         )}
@@ -906,6 +975,41 @@ function Member() {
                                                 <div className="col-md-6">
                                                     <div className="mb-3">
                                                         <label className="form-label">
+                                                            Second child's
+                                                            birthday
+                                                        </label>
+                                                        {isEditing ? (
+                                                            <Flatpickr
+                                                                type="date"
+                                                                className="form-control"
+                                                                value={
+                                                                    data.second_child_dob
+                                                                }
+                                                                onChange={(e) =>
+                                                                    setData(
+                                                                        "second_child_dob",
+                                                                        e.target
+                                                                            .value
+                                                                    )
+                                                                }
+                                                            />
+                                                        ) : (
+                                                            <div
+                                                                style={{
+                                                                    color: "#11111199",
+                                                                }}
+                                                            >
+                                                                {user.second_child_dob ??
+                                                                    "N/A"}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="row mt-2">
+                                                <div className="col-md-6">
+                                                    <div className="mb-3">
+                                                        <label className="form-label">
                                                             Third child's name
                                                         </label>
                                                         {isEditing ? (
@@ -930,6 +1034,106 @@ function Member() {
                                                                 }}
                                                             >
                                                                 {user.third_child_name ??
+                                                                    "N/A"}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="mb-3">
+                                                        <label className="form-label">
+                                                            Third child's
+                                                            birthday
+                                                        </label>
+                                                        {isEditing ? (
+                                                            <Flatpickr
+                                                                type="date"
+                                                                className="form-control"
+                                                                value={
+                                                                    data.third_child_dob
+                                                                }
+                                                                onChange={(e) =>
+                                                                    setData(
+                                                                        "third_child_dob",
+                                                                        e.target
+                                                                            .value
+                                                                    )
+                                                                }
+                                                            />
+                                                        ) : (
+                                                            <div
+                                                                style={{
+                                                                    color: "#11111199",
+                                                                }}
+                                                            >
+                                                                {user.third_child_dob ??
+                                                                    "N/A"}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="row mt-2">
+                                                <div className="col-md-6">
+                                                    <div className="mb-3">
+                                                        <label className="form-label">
+                                                            Fourth child's name
+                                                        </label>
+                                                        {isEditing ? (
+                                                            <input
+                                                                type="text"
+                                                                className="form-control"
+                                                                value={
+                                                                    data.fourth_child_name
+                                                                }
+                                                                onChange={(e) =>
+                                                                    setData(
+                                                                        "fourth_child_name",
+                                                                        e.target
+                                                                            .value
+                                                                    )
+                                                                }
+                                                            />
+                                                        ) : (
+                                                            <div
+                                                                style={{
+                                                                    color: "#11111199",
+                                                                }}
+                                                            >
+                                                                {user.fourth_child_name ??
+                                                                    "N/A"}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="mb-3">
+                                                        <label className="form-label">
+                                                            Fourth child's
+                                                            birthday
+                                                        </label>
+                                                        {isEditing ? (
+                                                            <Flatpickr
+                                                                type="date"
+                                                                className="form-control"
+                                                                value={
+                                                                    data.fourth_child_dob
+                                                                }
+                                                                onChange={(e) =>
+                                                                    setData(
+                                                                        "fourth_child_dob",
+                                                                        e.target
+                                                                            .value
+                                                                    )
+                                                                }
+                                                            />
+                                                        ) : (
+                                                            <div
+                                                                style={{
+                                                                    color: "#11111199",
+                                                                }}
+                                                            >
+                                                                {user.fourth_child_dob ??
                                                                     "N/A"}
                                                             </div>
                                                         )}
