@@ -57,7 +57,7 @@ const Members = ({ users, search, sort, user }) => {
     if (user.account_verified_at === null) {
         return (
             <Layout>
-                <AccountNotVerified/>
+                <AccountNotVerified />
             </Layout>
         );
     }
@@ -173,7 +173,7 @@ const Members = ({ users, search, sort, user }) => {
                                             <Link
                                                 href={`/members/${user.id}`}
                                                 key={user.id}
-                                                className="col-md-3"
+                                                className="col-6 col-md-3"
                                                 style={{
                                                     textDecoration: "none",
                                                 }}

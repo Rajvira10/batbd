@@ -155,5 +155,19 @@ class PermissionSeeder extends Seeder
 
             $permission->save();
         }
+
+        $permission = Permission::where('name', '=', 'role.delete')->first();
+
+        if($permission == null)
+        {
+            $permission = new Permission();
+
+            $permission->name = "role.delete";
+            $permission->alias = "Delete Roles";
+            $permission->description = "To delete a role";
+            $permission->permission_group = "User";
+
+            $permission->save();
+        }
     }
 }

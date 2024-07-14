@@ -31,20 +31,33 @@ class RoleController extends Controller
                     
                     if($role->name !== 'super_admin'){
                         
-                        // if(in_array('role.assign_permission', session('user_permissions')) && in_array('role.edit', session('user_permissions')))
-                        // {
+                    
                             $edit_button = '<div class="dropdown d-inline-block">
                                         <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="ri-more-fill align-middle"></i>
                                         </button>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li><a href="' . route('roles.edit', $role->id) . '" class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-primary"></i> Edit</a></li>
-                                            <li>
-                                                <a href="' . route('roles.role_permissions', $role->id) . '" class="dropdown-item remove-item-btn">
-                                                    <i class="ri-key-fill align-bottom me-2 text-success"></i> Assign Permissions
-                                                </a>
-                                            </li>
-                                        </ul>
+                                        <ul class="dropdown-menu dropdown-menu-end">';
+                            
+                                // if(in_array('role.edit', session('user_permissions'))){
+                                    $edit_button .= '<li><a href="' . route('roles.edit', $role->id) . '" class="dropdown-item edit-item-btn"><i class="ri-pencil-fill align-bottom me-2 text-primary"></i> Edit</a></li>';
+                                // }
+                                // if(in_array('role.assign_permission', session('user_permissions'))){
+                                    $edit_button .= '<li>
+                                                        <a href="' . route('roles.role_permissions', $role->id) . '" class="dropdown-item remove-item-btn">
+                                                            <i class="ri-key-fill align-bottom me-2 text-success"></i> Assign Permissions
+                                                        </a>
+                                                    </li>';
+                                // }
+                                // if(in_array('role.delete', session('user_permissions'))){
+                                    // $edit_button .= '<li>
+                                    //                     <a href="javascript:void(0);" class="dropdown-item remove-item-btn" onclick="deleteItem(' . $role->id . ')">
+                                    //                         <i class="ri-delete-bin-6-fill align-bottom me-2 text-danger"></i> Delete
+                                    //                     </a>
+                                    //                 </li>';
+                            
+                                // }
+
+                            $edit_button .= '</ul>
                                     </div>';
                         // }
                         // elseif(in_array('role.assign_permission', session('user_permissions')))
@@ -90,7 +103,7 @@ class RoleController extends Controller
     {
         // if(!in_array('role.create', session('user_permissions')))
         // {
-        //     return redirect()->route('admin.home')->with('error', 'You are not authorized');
+            return redirect()->route('admin.home')->with('error', 'You are not authorized');
         // }
 
         $request->session()->now('view_name', 'admin.users.role.index');
@@ -102,7 +115,7 @@ class RoleController extends Controller
     {
         // if(!in_array('role.edit', session('user_permissions')))
         // {
-        //     return redirect()->route('admin.home')->with('error', 'You are not authorized');
+            return redirect()->route('admin.home')->with('error', 'You are not authorized');
         // }
 
         $request->session()->now('view_name', 'admin.users.role.index');
@@ -169,7 +182,7 @@ class RoleController extends Controller
     {
         // if(!in_array('role.assign_permission', session('user_permissions')))
         // {
-        //     return redirect()->route('admin.home')->with('error', 'You are not authorized');
+            return redirect()->route('admin.home')->with('error', 'You are not authorized');
         // }
 
         $request->session()->now('view_name', 'admin.users.role.index');
@@ -207,6 +220,30 @@ class RoleController extends Controller
             $role->permissions()->sync($request->permissions);
             
             return redirect()->route('roles.index')->with('success', 'Role Permissions Updated Successfully');
+        }
+        else{
+            return redirect()->route('roles.index')->with('error', 'Role Not Found');
+        }
+    }
+
+    public function destroy(Request $request)
+    {
+        // if(!in_array('role.delete', session('user_permissions')))
+        // {
+         return redirect()->route('admin.home')->with('error', 'You are not authorized');
+        // }
+
+        $role = Role::find($request->role_id);
+
+        if($role != null){
+
+            if($role->name !== 'super_admin'){
+                $role->delete();
+                return redirect()->route('roles.index')->with('success', 'Role Deleted Successfully');
+            }
+            else{
+                return redirect()->route('roles.index')->with('error', 'Cannot Delete Super Admin Role');
+            }
         }
         else{
             return redirect()->route('roles.index')->with('error', 'Role Not Found');

@@ -9,13 +9,15 @@ import { FaArrowCircleUp } from "react-icons/fa";
 import Select from "react-select";
 import Modal from "react-modal";
 import { BiPlusCircle } from "react-icons/bi";
-
+import Lightbox from "../Components/Lightbox";
 function Member() {
     const { props } = usePage();
     const { message } = props.flash;
     const { user, countries } = props;
 
     const [isEditing, setIsEditing] = useState(false);
+    const [lightboxOpen, setLightboxOpen] = useState(false);
+    const [photoIndex, setPhotoIndex] = useState(0);
     const [profileImage, setProfileImage] = useState(user.profile_image);
     const [coverImage, setCoverImage] = useState(user.cover_image);
     const [gallery, setGallery] = useState(user.gallery || []);
@@ -64,6 +66,11 @@ function Member() {
 
     const handleImageClick = () => {
         setIsGalleryModalOpen(true);
+    };
+
+    const handleModalImageClick = (index) => {
+        setPhotoIndex(index);
+        setLightboxOpen(true);
     };
 
     const closeModal = () => {
@@ -959,12 +966,13 @@ function Member() {
                                     cursor: "pointer",
                                     margin: "10px",
                                 }}
+                                onClick={() => handleModalImageClick(index)}
                             />
                         ))}
                         {isEditing && (
-                            <div className="card-body ">
+                            <div className="card-body position-relative">
                                 <BiPlus
-                                    className="ms-4 mt-4 position-absolute"
+                                    className="ms-4 mt-4"
                                     style={{
                                         fontSize: 40,
                                         cursor: "pointer",
@@ -988,6 +996,7 @@ function Member() {
                                     type="file"
                                     className="position-relative mt-4"
                                     onChange={addNewImage}
+                                    multiple
                                 />
                             </div>
                         )}
@@ -1001,6 +1010,14 @@ function Member() {
                     </button>
                 </div>
             </Modal>
+
+            <Lightbox
+                isOpen={lightboxOpen}
+                onClose={() => setLightboxOpen(false)}
+                images={gallery}
+                currentIndex={photoIndex}
+                setCurrentIndex={setPhotoIndex}
+            />
         </Layout>
     );
 }

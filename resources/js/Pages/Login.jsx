@@ -76,7 +76,7 @@ const Login = () => {
                                         </div>
                                     )}
                                 </div>
-                                <div className="input-icon-end mb-2 position-relative">
+                                <div className="mb-2 position-relative">
                                     <input
                                         type="password"
                                         className="form-control"
@@ -125,14 +125,14 @@ const Login = () => {
                                             Login
                                         </button>
                                     </div>
-                                    <div className="col-sm-6 text-center text-sm-end mt-3 mt-sm-0">
+                                    {/* <div className="col-sm-6 text-center text-sm-end mt-3 mt-sm-0">
                                         <Link
                                             href="/forgot-password"
                                             className="text-dark fw-semibold"
                                         >
                                             Forgot your password?
                                         </Link>
-                                    </div>
+                                    </div> */}
                                 </div>
 
                                 <div className="text-center">

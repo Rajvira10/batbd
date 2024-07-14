@@ -62,12 +62,18 @@ class DashboardController extends Controller
         $user->anniversary = Carbon::parse($request->anniversary)->format('Y-m-d');
         $user->other_functions = $request->other_functions;
         $user->facebook_profile = $request->facebook_profile;
+        $user->linkedin_profile = $request->linkedin_profile;
         $user->country_id = $request->country;
         $user->whatsapp_number = $request->whatsapp_number;
-        $user->spouse_dob = Carbon::parse($request->spouse_dob)->format('Y-m-d');
+        $user->spouse_dob = $request->spouse_dob ? Carbon::parse($request->spouse_dob)->format('Y-m-d') : null;
         $user->first_child_name = $request->first_child_name;
+        $user->first_child_dob = $request->first_child_dob ? Carbon::parse($request->first_child_dob)->format('Y-m-d') : null;
         $user->second_child_name = $request->second_child_name;
+        $user->second_child_dob = $request->second_child_dob ? Carbon::parse($request->second_child_dob)->format('Y-m-d') : null;
         $user->third_child_name = $request->third_child_name;
+        $user->third_child_dob = $request->third_child_dob ?Carbon::parse($request->third_child_dob)->format('Y-m-d') : null;
+        $user->fourth_child_name = $request->fourth_child_name;
+        $user->fourth_child_dob = $request->fourth_child_dob ? Carbon::parse($request->fourth_child_dob)->format('Y-m-d') : null;
         $user->fun_fact_about_you = $request->fun_fact_about_you;
 
         if($request->hasFile('profileImage'))

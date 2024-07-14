@@ -34,11 +34,17 @@ function Home() {
         country: user.country_id,
         facebook_profile: user.facebook_profile,
         whatsapp_number: user.whatsapp_number,
+        linkedin_profile: user.linkedin_profile,
         fun_fact_about_you: user.fun_fact_about_you,
         spouse_dob: user.spouse_dob,
         first_child_name: user.first_child_name,
+        first_child_dob: user.first_child_dob,
         second_child_name: user.second_child_name,
+        second_child_dob: user.second_child_dob,
         third_child_name: user.third_child_name,
+        third_child_dob: user.third_child_dob,
+        fourth_child_name: user.fourth_child_name,
+        fourth_child_dob: user.fourth_child_dob,
         profileImage: null,
         coverImage: null,
         gallery: [],
@@ -87,10 +93,16 @@ function Home() {
         setIsGalleryModalOpen(false);
     };
 
-    const addNewImage = (e) => {
-        const file = e.target.files[0];
-        setGallery([...gallery, URL.createObjectURL(file)]);
-        data.gallery.push(file);
+    // const addNewImage = (e) => {
+    //     const file = e.target.files[0];
+    //     setGallery([...gallery, URL.createObjectURL(file)]);
+    //     data.gallery.push(file);
+    // };
+    const addNewImages = (event) => {
+        const files = Array.from(event.target.files);
+        const newImages = files.map((file) => URL.createObjectURL(file));
+        setGallery((prevGallery) => [...prevGallery, ...newImages]);
+        data.gallery = [...data.gallery, ...files];
     };
 
     if (user.account_verified_at === null) {
@@ -254,10 +266,7 @@ function Home() {
                                                 }
                                             />
                                             {isEditing && (
-                                                <div
-                                                    className="text-white position-absolute edit-icon"
-                                                    
-                                                >
+                                                <div className="text-white position-absolute edit-icon">
                                                     <label htmlFor="profileImageUpload">
                                                         <FaArrowCircleUp
                                                             style={{
@@ -740,6 +749,40 @@ function Home() {
                                                 </div>
                                             </div>
                                         </div>
+                                        <div className="row">
+                                            <div className="col-md-12">
+                                                <div className="mb-3">
+                                                    <label className="form-label">
+                                                        LinkedIn profile
+                                                    </label>
+                                                    {isEditing ? (
+                                                        <input
+                                                            type="text"
+                                                            className="form-control"
+                                                            value={
+                                                                data.linkedin_profile
+                                                            }
+                                                            onChange={(e) =>
+                                                                setData(
+                                                                    "linkedin_profile",
+                                                                    e.target
+                                                                        .value
+                                                                )
+                                                            }
+                                                        />
+                                                    ) : (
+                                                        <div
+                                                            style={{
+                                                                color: "#11111199",
+                                                            }}
+                                                        >
+                                                            {user.linkedin_profile ??
+                                                                "N/A"}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div className="col-xl-6">
                                         <div
@@ -787,56 +830,55 @@ function Home() {
                                             <p className="form-label">
                                                 Photo gallery
                                             </p>
-                                            <div className="d-flex justify-content-between align-items-center mt-2">
+                                            <div className="row mt-2">
                                                 <div
-                                                    className="d-flex justify-content-between align-items-center mt-2"
+                                                    className="col-12 d-flex flex-wrap"
                                                     onClick={handleImageClick}
                                                 >
                                                     {gallery
                                                         ?.slice(0, 4)
                                                         .map((image, index) => (
-                                                            <img
+                                                            <div
                                                                 key={index}
-                                                                src={image}
-                                                                alt=""
-                                                                style={{
-                                                                    height: "73px",
-                                                                    width: "73px",
-                                                                    objectFit:
-                                                                        "cover",
-                                                                    borderRadius:
-                                                                        "10px",
-                                                                    cursor: "pointer",
-                                                                    margin: "10px",
-                                                                }}
-                                                            />
+                                                                className="p-2"
+                                                            >
+                                                                <img
+                                                                    src={image}
+                                                                    alt=""
+                                                                    className="img-fluid"
+                                                                    style={{
+                                                                        height: "73px",
+                                                                        width: "73px",
+                                                                        objectFit:
+                                                                            "cover",
+                                                                        borderRadius:
+                                                                            "10px",
+                                                                        cursor: "pointer",
+                                                                    }}
+                                                                />
+                                                            </div>
                                                         ))}
                                                 </div>
-                                                <div
-                                                    className="w-100"
-                                                    style={{
-                                                        fontSize: 12,
-                                                        fontWeight: 600,
-                                                    }}
-                                                >
+                                                <div className="col-12 d-flex justify-content-between align-items-center">
                                                     {gallery?.length > 4 ? (
                                                         <span
-                                                            className="ms-3 "
+                                                            className="ms-3"
                                                             onClick={
                                                                 handleImageClick
                                                             }
                                                             style={{
                                                                 cursor: "pointer",
+                                                                fontSize: 12,
+                                                                fontWeight: 600,
                                                             }}
                                                         >
                                                             +{" "}
-                                                            {gallery?.length -
-                                                                4}{" "}
+                                                            {gallery.length - 4}{" "}
                                                             more
                                                         </span>
                                                     ) : isEditing ? (
                                                         <div
-                                                            className="ms-3 "
+                                                            className="ms-3"
                                                             onClick={
                                                                 handleImageClick
                                                             }
@@ -853,6 +895,8 @@ function Home() {
                                                         <p
                                                             style={{
                                                                 color: "#11111199",
+                                                                fontSize: 12,
+                                                                fontWeight: 600,
                                                             }}
                                                         >
                                                             No images uploaded
@@ -876,7 +920,7 @@ function Home() {
                                                 <div className="col-md-6">
                                                     <div className="mb-3">
                                                         <label className="form-label">
-                                                            Your spouses's
+                                                            Your spouse's
                                                             birthday
                                                         </label>
                                                         {isEditing ? (
@@ -886,11 +930,12 @@ function Home() {
                                                                 value={
                                                                     data.spouse_dob
                                                                 }
-                                                                onChange={(e) =>
+                                                                onChange={(
+                                                                    date
+                                                                ) =>
                                                                     setData(
                                                                         "spouse_dob",
-                                                                        e.target
-                                                                            .value
+                                                                        date
                                                                     )
                                                                 }
                                                             />
@@ -912,6 +957,8 @@ function Home() {
                                                         )}
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div className="row mb-3">
                                                 <div className="col-md-6">
                                                     <div className="mb-3">
                                                         <label className="form-label">
@@ -940,6 +987,46 @@ function Home() {
                                                             >
                                                                 {user.first_child_name ??
                                                                     "N/A"}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="mb-3">
+                                                        <label className="form-label">
+                                                            First Child's
+                                                            birthday
+                                                        </label>
+                                                        {isEditing ? (
+                                                            <Flatpickr
+                                                                type="date"
+                                                                className="form-control"
+                                                                value={
+                                                                    data.first_child_dob
+                                                                }
+                                                                onChange={(
+                                                                    date
+                                                                ) =>
+                                                                    setData(
+                                                                        "first_child_dob",
+                                                                        date[0]
+                                                                    )
+                                                                }
+                                                            />
+                                                        ) : (
+                                                            <div
+                                                                style={{
+                                                                    color: "#11111199",
+                                                                }}
+                                                            >
+                                                                {user.first_child_dob
+                                                                    ? format(
+                                                                          new Date(
+                                                                              user.first_child_dob
+                                                                          ),
+                                                                          "d MMMM yyyy"
+                                                                      )
+                                                                    : "N/A"}
                                                             </div>
                                                         )}
                                                     </div>
@@ -981,6 +1068,48 @@ function Home() {
                                                 <div className="col-md-6">
                                                     <div className="mb-3">
                                                         <label className="form-label">
+                                                            Second child's
+                                                            birthday
+                                                        </label>
+                                                        {isEditing ? (
+                                                            <Flatpickr
+                                                                type="date"
+                                                                className="form-control"
+                                                                value={
+                                                                    data.second_child_dob
+                                                                }
+                                                                onChange={(
+                                                                    date
+                                                                ) =>
+                                                                    setData(
+                                                                        "second_child_dob",
+                                                                        date[0]
+                                                                    )
+                                                                }
+                                                            />
+                                                        ) : (
+                                                            <div
+                                                                style={{
+                                                                    color: "#11111199",
+                                                                }}
+                                                            >
+                                                                {user.second_child_dob
+                                                                    ? format(
+                                                                          new Date(
+                                                                              user.second_child_dob
+                                                                          ),
+                                                                          "d MMMM yyyy"
+                                                                      )
+                                                                    : "N/A"}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="row mt-2">
+                                                <div className="col-md-6">
+                                                    <div className="mb-3">
+                                                        <label className="form-label">
                                                             Third child's name
                                                         </label>
                                                         {isEditing ? (
@@ -1006,6 +1135,120 @@ function Home() {
                                                             >
                                                                 {user.third_child_name ??
                                                                     "N/A"}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="mb-3">
+                                                        <label className="form-label">
+                                                            Third child's
+                                                            birthday
+                                                        </label>
+                                                        {isEditing ? (
+                                                            <Flatpickr
+                                                                type="date"
+                                                                className="form-control"
+                                                                value={
+                                                                    data.third_child_dob
+                                                                }
+                                                                onChange={(
+                                                                    date
+                                                                ) =>
+                                                                    setData(
+                                                                        "third_child_dob",
+                                                                        date[0]
+                                                                    )
+                                                                }
+                                                            />
+                                                        ) : (
+                                                            <div
+                                                                style={{
+                                                                    color: "#11111199",
+                                                                }}
+                                                            >
+                                                                {user.third_child_dob
+                                                                    ? format(
+                                                                          new Date(
+                                                                              user.third_child_dob
+                                                                          ),
+                                                                          "d MMMM yyyy"
+                                                                      )
+                                                                    : "N/A"}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="row mb-2">
+                                                <div className="col-md-6">
+                                                    <div className="mb-3">
+                                                        <label className="form-label">
+                                                            Fourth child's name
+                                                        </label>
+                                                        {isEditing ? (
+                                                            <input
+                                                                type="text"
+                                                                className="form-control"
+                                                                value={
+                                                                    data.fourth_child_name
+                                                                }
+                                                                onChange={(e) =>
+                                                                    setData(
+                                                                        "fourth_child_name",
+                                                                        e.target
+                                                                            .value
+                                                                    )
+                                                                }
+                                                            />
+                                                        ) : (
+                                                            <div
+                                                                style={{
+                                                                    color: "#11111199",
+                                                                }}
+                                                            >
+                                                                {user.fourth_child_name ??
+                                                                    "N/A"}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="mb-3">
+                                                        <label className="form-label">
+                                                            Fourth child's
+                                                            birthday
+                                                        </label>
+                                                        {isEditing ? (
+                                                            <Flatpickr
+                                                                type="date"
+                                                                className="form-control"
+                                                                value={
+                                                                    data.fourth_child_dob
+                                                                }
+                                                                onChange={(
+                                                                    date
+                                                                ) =>
+                                                                    setData(
+                                                                        "fourth_child_dob",
+                                                                        date[0]
+                                                                    )
+                                                                }
+                                                            />
+                                                        ) : (
+                                                            <div
+                                                                style={{
+                                                                    color: "#11111199",
+                                                                }}
+                                                            >
+                                                                {user.fourth_child_dob
+                                                                    ? format(
+                                                                          new Date(
+                                                                              user.fourth_child_dob
+                                                                          ),
+                                                                          "d MMMM yyyy"
+                                                                      )
+                                                                    : "N/A"}
                                                             </div>
                                                         )}
                                                     </div>
@@ -1110,7 +1353,8 @@ function Home() {
                                     }}
                                     type="file"
                                     className="position-relative mt-4"
-                                    onChange={addNewImage}
+                                    multiple
+                                    onChange={addNewImages}
                                 />
                             </div>
                         )}

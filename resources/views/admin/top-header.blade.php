@@ -53,6 +53,10 @@
 
                     <div class="dropdown-menu dropdown-menu-end">
                         <h6 class="dropdown-header">Welcome {{ auth()->user()->full_name }} !</h6>
+                        <a href="{{ route('logout') }}" class="dropdown-item notify-item">
+                            <i class='bx bx-log-out-circle'></i>
+                            <span>Logout</span>
+                        </a>
                     </div>
 
                 </div>

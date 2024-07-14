@@ -26,7 +26,7 @@ class MemberController extends Controller
             $query->orderBy($sort, $sortDirection);
         }
 
-        $users = $query->where('id', '!=', auth()->id())
+        $users = $query
             ->where('account_verified_at', '!=', null);
 
         $users = $query->paginate(24);
