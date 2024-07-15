@@ -38,6 +38,16 @@ Route::post('authenticate', [AuthenticationController::class, 'authenticate'])->
 
 Route::post('register', [AuthenticationController::class, 'register'])->name('register');
 
+Route::get('forgot-password', function () {
+    return inertia('ForgotPassword');
+})->middleware('guest')->name('forgot-password');
+
+Route::post('forgot-password', [AuthenticationController::class, 'forgotPassword'])->name('forgot-password');
+    
+Route::get('reset-password/{token}', [AuthenticationController::class, 'resetPassword'])->name('reset-password');
+
+Route::post('reset-password/{id}', [AuthenticationController::class, 'updatePassword'])->name('update-password');
+
 Route::group(['middleware' => ['auth:web']], function() {
 
     Route::get('email-confirmation/{user}', [AuthenticationController::class, 'emailConfirmation'])->name('email-confirmation');
@@ -50,6 +60,7 @@ Route::group(['middleware' => ['auth:web']], function() {
     })->name('verification.verify');
 
     Route::get('/email/resend/{user}', [AuthenticationController::class, 'resendEmailVerification'])->name('verification.resend');
+
 
 
     Route::get('logout', [AuthenticationController::class, 'logout'])->name('logout');

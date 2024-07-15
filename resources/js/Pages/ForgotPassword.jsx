@@ -1,28 +1,33 @@
-import { usePage } from "@inertiajs/react";
+import { Link, useForm, usePage } from "@inertiajs/react";
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 const ForgotPassword = () => {
     const { props } = usePage();
     const { message } = props.flash;
-    const [email, setEmail] = useState("");
+    console.log(message);
+    const { data, setData, post, processing, errors } = useForm({
+        email: "",
+    });
 
     useEffect(() => {
         if (message?.type === "success") {
             toast.success(message.content);
         }
-        if (message?.type === "error") {
+        if (message?.type === "danger") {
             toast.error(message.content);
         }
     }, [message]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission, possibly using an Inertia form or other method
+        post("/forgot-password", {
+            email,
+        });
     };
 
     return (
-        <body className="bg-main">
+        <div className="bg-main">
             <div className="container">
                 <div className="row frm-pg">
                     <div className="col-xl-6 d-flex justify-content-center justify-content-xl-start text-center text-xl-start">
@@ -49,28 +54,28 @@ const ForgotPassword = () => {
                                     send you instructions on how to reset your
                                     password.
                                 </p>
-                                <form onSubmit={handleSubmit}>
+                                <form onSubmit={handleSubmit} className="mt-3">
                                     <div className="mb-3">
                                         <label
                                             htmlFor="email"
                                             className="form-label"
                                         >
-                                            Email address
+                                            Email
                                         </label>
                                         <input
                                             type="email"
                                             className="form-control"
                                             id="email"
-                                            value={email}
+                                            value={data.email}
                                             onChange={(e) =>
-                                                setEmail(e.target.value)
+                                                setData("email", e.target.value)
                                             }
                                             required
                                         />
                                     </div>
                                     <button
                                         type="submit"
-                                        className="btn btn-primary"
+                                        className="btn btn-round btn-gray bg-gray text-light px-5 py-2 fs-20"
                                     >
                                         Send Reset Link
                                     </button>
@@ -79,7 +84,7 @@ const ForgotPassword = () => {
                             <div className="card-footer mt-5">
                                 <p>
                                     Remembered your password?{" "}
-                                    <a href="/login">Go back to login</a>
+                                    <Link href="/login">Go back to login</Link>
                                 </p>
                             </div>
                         </div>
@@ -115,7 +120,7 @@ const ForgotPassword = () => {
                     </div>
                 </div>
             </footer>
-        </body>
+        </div>
     );
 };
 

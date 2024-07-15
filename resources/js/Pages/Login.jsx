@@ -125,14 +125,14 @@ const Login = () => {
                                             Login
                                         </button>
                                     </div>
-                                    {/* <div className="col-sm-6 text-center text-sm-end mt-3 mt-sm-0">
+                                    <div className="col-sm-6 text-center text-sm-end mt-3 mt-sm-0">
                                         <Link
                                             href="/forgot-password"
                                             className="text-dark fw-semibold"
                                         >
                                             Forgot your password?
                                         </Link>
-                                    </div> */}
+                                    </div>
                                 </div>
 
                                 <div className="text-center">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Permission;
+use App\Mail\ForgotPassword;
 use Illuminate\Http\Request;
 use App\Mail\EmailVerification;
 use App\Http\Controllers\Controller;
@@ -130,5 +131,52 @@ class AuthenticationController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('login');
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required | email'
+        ], [
+            'email.required' => 'Please enter your email !',
+            'email.email' => 'Please enter a valid email !'
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if($user)
+        {
+            $resetLinkWithEncryptedToken = url('/reset-password/' . encrypt($user->id));
+
+            Mail::to($user->email)->send(new ForgotPassword($resetLinkWithEncryptedToken));
+
+            return redirect()->route('login')->with('message', ['type' => 'success', 'content' => 'Password reset link sent !']);
+        }
+
+        return redirect()->route('forgot-password')->with('message', ['type' => 'danger', 'content' => 'Email not found !']);
+    }
+
+    public function resetPassword(Request $request, $token)
+    {
+        $user_id = decrypt($token);
+        $user = User::findOrFail($user_id);
+        return inertia('ResetPassword', ['user' => $user]);
+    }
+
+    public function updatePassword(Request $request,$id)
+    {
+        $request->validate([
+            'password' => 'required | string | min:8'
+        ], [
+            'password.required' => 'Please enter your password !',
+            'password.string' => 'Only alphabets, numbers & special characters are allowed. Must be a string !',
+            'password.min' => 'Password must be at least 8 characters long !'
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        return redirect()->route('login')->with('message', ['type' => 'success', 'content' => 'Password reset successful !']);
     }
 }
