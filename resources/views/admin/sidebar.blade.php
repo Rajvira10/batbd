@@ -32,7 +32,6 @@
             id="vertical-hover">
             <i class="ri-record-circle-line"></i>
         </button>
-
     </div>
 
     <div id="scrollbar">
@@ -42,6 +41,15 @@
             </div>
             <ul class="navbar-nav" id="navbar-nav">
 
+                <div class="nav-item">
+                    <div class="d-block d-md-none">
+                        <button type="button" class="btn btn-close float-end p-2" id="sidebar-close-btn"
+                            style="background-color: #fff; border: none; border-radius: 50%; box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);"
+                            aria-expanded="false">
+                            <i class="ri-close-line fs-24"></i>
+                        </button>
+                    </div>
+                </div>
                 <li class="menu-title"><span data-key="t-menu">Menu</span></li>
 
 
@@ -181,4 +189,5 @@
 
     <div class="sidebar-background"></div>
 </div>
+
 <!-- ========== --end-- SIDEBAR MODULE ========== -->

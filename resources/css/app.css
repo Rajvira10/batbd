@@ -422,13 +422,14 @@ input[type="date"] {
         display: none;
     }
     .header-container {
+        width: 80%;
         flex-direction: column;
         align-items: start;
     }
 
     .header-container p {
         font-size: 11px;
-        width: 60%;
+        width: 70%;
         line-height: 1.2;
     }
     .member-since {

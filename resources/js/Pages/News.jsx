@@ -74,11 +74,11 @@ const News = ({ initialArticles, filters, user }) => {
     return (
         <Layout>
             <div className="site-container">
-                <div className="row mt-4 mb-2">
-                    <div className="col-md-4">
+                <div className="row mt-4 mb-5">
+                    <div className="col-12 col-md-4">
                         <h1>News</h1>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-6 col-md-4">
                         <input
                             type="text"
                             className="form-control"
@@ -87,7 +87,7 @@ const News = ({ initialArticles, filters, user }) => {
                             onChange={handleSearch}
                         />
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-6 col-md-4">
                         <input
                             type="date"
                             className="form-control"

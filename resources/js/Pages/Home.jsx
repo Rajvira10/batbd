@@ -70,6 +70,7 @@ function Home() {
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
+        setIsEditing(false);
         post("/profile/update");
     };
 
@@ -93,11 +94,6 @@ function Home() {
         setIsGalleryModalOpen(false);
     };
 
-    // const addNewImage = (e) => {
-    //     const file = e.target.files[0];
-    //     setGallery([...gallery, URL.createObjectURL(file)]);
-    //     data.gallery.push(file);
-    // };
     const addNewImages = (event) => {
         const files = Array.from(event.target.files);
         const newImages = files.map((file) => URL.createObjectURL(file));
@@ -716,6 +712,40 @@ function Home() {
                                             <div className="col-md-12">
                                                 <div className="mb-3">
                                                     <label className="form-label">
+                                                        LinkedIn profile
+                                                    </label>
+                                                    {isEditing ? (
+                                                        <input
+                                                            type="text"
+                                                            className="form-control"
+                                                            value={
+                                                                data.linkedin_profile
+                                                            }
+                                                            onChange={(e) =>
+                                                                setData(
+                                                                    "linkedin_profile",
+                                                                    e.target
+                                                                        .value
+                                                                )
+                                                            }
+                                                        />
+                                                    ) : (
+                                                        <div
+                                                            style={{
+                                                                color: "#11111199",
+                                                            }}
+                                                        >
+                                                            {user.linkedin_profile ??
+                                                                "N/A"}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-md-12">
+                                                <div className="mb-3">
+                                                    <label className="form-label">
                                                         Your mobile number{" "}
                                                         <br />
                                                         (preferably, the one you
@@ -743,40 +773,6 @@ function Home() {
                                                             }}
                                                         >
                                                             {user.whatsapp_number ??
-                                                                "N/A"}
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-md-12">
-                                                <div className="mb-3">
-                                                    <label className="form-label">
-                                                        LinkedIn profile
-                                                    </label>
-                                                    {isEditing ? (
-                                                        <input
-                                                            type="text"
-                                                            className="form-control"
-                                                            value={
-                                                                data.linkedin_profile
-                                                            }
-                                                            onChange={(e) =>
-                                                                setData(
-                                                                    "linkedin_profile",
-                                                                    e.target
-                                                                        .value
-                                                                )
-                                                            }
-                                                        />
-                                                    ) : (
-                                                        <div
-                                                            style={{
-                                                                color: "#11111199",
-                                                            }}
-                                                        >
-                                                            {user.linkedin_profile ??
                                                                 "N/A"}
                                                         </div>
                                                     )}

@@ -5,14 +5,7 @@ const Disclosure = ({ disclosure }) => {
     return (
         <Layout>
             <div className="pt-5"></div>
-            <div
-                className=""
-                style={{
-                    width: "70%",
-                    minHeight: "80vh",
-                    margin: "0 auto",
-                }}
-            >
+            <div className="site-container mb-5">
                 <div className="card">
                     <div className="card-body">
                         <div className="row">

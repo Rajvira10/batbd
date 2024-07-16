@@ -16,7 +16,7 @@
             </div>
 
             <div class="d-flex align-items-center">
-                <div class="ms-1 header-item d-none d-sm-flex">
+                <div class="ms-1 header-item d-sm-flex">
                     <a href="{{ route('home') }}" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle">
                         <i class='bx bx-home fs-22'></i>
                     </a>

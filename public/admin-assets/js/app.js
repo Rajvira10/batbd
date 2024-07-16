@@ -446,6 +446,10 @@
           document
             .getElementById("topnav-hamburger-icon")
             .addEventListener("click", M);
+        document.getElementById("topnav-hamburger-icon2") &&
+            document
+                .getElementById("topnav-hamburger-icon2")
+                .addEventListener("click", M);
       var e = sessionStorage.getItem("defaultAttribute"),
         e = JSON.parse(e),
         t = document.documentElement.clientWidth;

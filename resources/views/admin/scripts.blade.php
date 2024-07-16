@@ -145,3 +145,14 @@
         return true;
     }
 </script>
+
+<script>
+    $(document).ready(function() {
+        $('#sidebar-close-btn').on('click', function() {
+            $('.app-menu').attr('style', 'margin-left: -100% !important');
+        });
+        $('.hamburger-icon').on('click', function() {
+            $('.app-menu').attr('style', 'margin-left: 0% !important');
+        });
+    });
+</script>
