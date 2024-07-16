@@ -46,7 +46,6 @@
                         <button type="button" class="btn btn-close float-end p-2" id="sidebar-close-btn"
                             style="background-color: #fff; border: none; border-radius: 50%; box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);"
                             aria-expanded="false">
-                            <i class="ri-close-line fs-24"></i>
                         </button>
                     </div>
                 </div>
@@ -175,7 +174,7 @@
                     <div class="collapse menu-dropdown {{ $show }}" id="sidebarMedia">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('admin.medias') }}" target="_self"
+                                <a href="{{ route('admin.galleries') }}" target="_self"
                                     class="nav-link {{ session('view_name') == 'admin.medias.index' ? 'active' : '' }}"
                                     data-key="t-user">Gallery</a>
                             </li>

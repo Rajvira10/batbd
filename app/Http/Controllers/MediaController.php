@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Media;
+use App\Models\Gallery;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Repositories\MediaRepository;
@@ -18,45 +19,52 @@ class MediaController extends Controller
 
     public function index(Request $request)
     {
-        $medias = Media::paginate(40);
+        $galleries = Gallery::where('status', 'active')->get();
+        if($galleries->isEmpty()){
+            return inertia('Media', ['galleries' => $galleries, 'media' => [], 'user' => auth()->user(), 'selectedGalleryId' => null]);
+        }
+        $selectedGalleryId = $request->query('gallery_id', $galleries->first()->id);
+        $media = Gallery::find($selectedGalleryId)->media()->paginate(40);
         $user = auth()->user();
-        if($request->page){
-            return response()->json($medias);
+
+        if ($request->gallery_id) {
+            return response()->json($media);
         }
 
-        return inertia('Media', ['medias' => $medias, 'user'=>$user]);
+        return inertia('Media', ['galleries' => $galleries, 'media' => $media, 'user' => $user, 'selectedGalleryId' => $selectedGalleryId]);
     }
 
-    public function admin(Request $request)
+    public function admin(Request $request, $id)
     {
         $request->session()->now('view_name', 'admin.medias.index');
         try{
-            $medias = $this->mediaRepository->index();
+            $medias = $this->mediaRepository->index($id);
+            $gallery = Gallery::find($id);
 
-            return view('admin.media.index', compact('medias'));
+            return view('admin.media.index', compact('medias', 'id', 'gallery'));
         } catch (\Exception $e) {
             $bug = $e->getMessage();
             return redirect()->back()->with('error', $bug);
         }
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        $response = $this->mediaRepository->store($request);
+        $response = $this->mediaRepository->store($request, $id);
 
         if($response['status'] == 'success'){
-            return redirect()->route('admin.medias')->with('success', $response['message']);
+            return back()->with('success', $response['message']);
         }
         else{
             return redirect()->back()->with('error', $response['message']);
         }
     }
 
-    public function storeAjax(Request $request)
+    public function storeAjax(Request $request, $id)
     {
         if($request->ajax())
         {
-            $response = $this->mediaRepository->store($request);
+            $response = $this->mediaRepository->store($request, $id);
 
             if($response['status'] == 'success'){
                 return response()->json(['success' => $response['message'], 'data' => $response['data']]);

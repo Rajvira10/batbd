@@ -14,10 +14,10 @@
                         @endif
                         <div class="card">
                             <div class="card-body d-flex justify-content-between align-items-center">
-                                <h4>Gallery</h4>
+                                <h4>Media of {{ $gallery->name }}</h4>
                                 <div class="d-flex align-items-center">
                                     <input type="text" id="searchInput" class="form-control me-4 w-100"
-                                        placeholder="Search gallery...">
+                                        placeholder="Search media...">
                                     {{-- @if (auth()->user()->authorize('medias.create')) --}}
                                     <button class="btn d-flex btn-success" data-bs-toggle="modal"
                                         data-bs-target="#addMediaModal">
@@ -27,6 +27,7 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" name="gallery_id" id="gallery_id" value={{ $id }}>
                         <div class="media-grid">
                             @foreach ($medias as $item)
                                 <div class="media-item mb-4" style="" data-name="{{ $item->name }}">
@@ -52,7 +53,7 @@
                             <h5 class="modal-title" id="addMediaModalLabel">Add New Item</h5>
                         </div>
                         <div class="modal-body">
-                            <form id="addMediaForm" action="{{ route('admin.medias.store') }}" method="POST"
+                            <form id="addMediaForm" action="{{ route('admin.medias.store', $id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group mb-3">

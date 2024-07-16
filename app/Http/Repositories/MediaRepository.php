@@ -7,15 +7,14 @@ use Illuminate\Support\Facades\Storage;
 
 class MediaRepository
 {
-    public function index()
+    public function index($id)
     {
-        $medias = Media::latest()->paginate(50);
+        $medias = Media::where('gallery_id', $id)->paginate(40);
         return $medias;
     }
 
-    public function store($request)
+    public function store($request, $id)
     {
-
         $request->validate([
             'file' => 'required|array',
             'file.*' => 'required|file|mimes:jpeg,png,jpg,gif,svg'
@@ -30,6 +29,7 @@ class MediaRepository
                 $absolute_path = public_path($relative_path);
 
                 $media = new Media();
+                $media->gallery_id = $id;
                 $media->name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
                 $media->absolute_path = $absolute_path;
                 $media->relative_path = $relative_path;

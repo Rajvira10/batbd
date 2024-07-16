@@ -410,6 +410,19 @@ input[type="date"] {
     border-left: 1px solid rgb(158, 158, 158);
 }
 
+.nav-container {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.nav-tabs .nav-item {
+    display: inline-block;
+}
+
+.nav-tabs .nav-link {
+    white-space: nowrap;
+}
+
 @media (max-width: 768px) {
     #navbarNav {
         display: none;

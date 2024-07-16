@@ -3,10 +3,11 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\MediaController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DisclosureController;
 use App\Http\Controllers\AuthenticationController;
@@ -135,12 +136,21 @@ Route::group(['middleware' => ['auth:web']], function() {
             Route::get('archive', [NewsController::class, 'archiveIndex'])->name('admin.news.archive.index');
         });
 
+        Route::group(['prefix' => 'gallery'], function(){
+            Route::get('index', [GalleryController::class,'admin'])->name('admin.galleries');
+            Route::get('create', [GalleryController::class,'create'])->name('admin.galleries.create');
+            Route::post('store', [GalleryController::class,'store'])->name('admin.galleries.store');
+            Route::get('edit/{gallery_id}', [GalleryController::class,'edit'])->name('admin.galleries.edit');
+            Route::post('update/{gallery_id}', [GalleryController::class,'update'])->name('admin.galleries.update');
+            Route::post('delete', [GalleryController::class,'destroy'])->name('admin.galleries.destroy');
+        });
+
         Route::group(['prefix' => 'media'], function(){
             
-            Route::get('index', [MediaController::class,'admin'])->name('admin.medias');
+            Route::get('index/{media_id}', [MediaController::class,'admin'])->name('admin.medias');
             Route::get('create', [MediaController::class,'create'])->name('admin.medias.create');
-            Route::post('store', [MediaController::class,'store'])->name('admin.medias.store');
-            Route::post('store-ajax', [MediaController::class,'storeAjax'])->name('admin.medias.store_ajax');
+            Route::post('store/{media_id}', [MediaController::class,'store'])->name('admin.medias.store');
+            Route::post('store-ajax/{media_id}', [MediaController::class,'storeAjax'])->name('admin.medias.store_ajax');
             Route::get('edit/{media_id}', [MediaController::class,'edit'])->name('admin.medias.edit');
             Route::post('update', [MediaController::class,'update'])->name('admin.medias.update');
             Route::post('delete', [MediaController::class,'destroy'])->name('admin.medias.destroy');

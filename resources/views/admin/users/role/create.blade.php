@@ -41,14 +41,14 @@
                                             <div class="form-group">
                                                 <label for="name">
                                                     {{ __('Name') }}
-                                                    <span class="text-red">*</span>
+                                                    <span class="text-danger">*</span>
                                                 </label>
                                                 <input id="name" type="text"
                                                     class="form-control @error('name') is-invalid @enderror" name="name"
                                                     value="{{ old('name') }}" placeholder="">
                                                 <div class="help-block with-errors"></div>
                                                 @error('name')
-                                                    <span class="text-red-error" role="alert">
+                                                    <span class="text-danger" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
@@ -61,14 +61,14 @@
                                             <div class="form-group">
                                                 <label for="description">
                                                     {{ __('Description') }}
-                                                    <span class="text-red">*</span>
+                                                    <span class="text-danger">*</span>
                                                 </label>
                                                 <input id="description" type="text"
                                                     class="form-control @error('description') is-invalid @enderror"
                                                     name="description" value="{{ old('description') }}" placeholder="">
                                                 <div class="help-block with-errors"></div>
                                                 @error('description')
-                                                    <span class="text-red-error" role="alert">
+                                                    <span class="text-danger" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
