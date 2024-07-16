@@ -13,20 +13,25 @@
                             </div>
                         @endif
                         <div class="card">
-                            <div class="card-body d-flex justify-content-between align-items-center">
-                                <h4>Media of {{ $gallery->name }}</h4>
-                                <div class="d-flex align-items-center">
-                                    <input type="text" id="searchInput" class="form-control me-4 w-100"
+                            <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-center">
+                                <h4 class="mb-3 mb-md-0">Media of {{ $gallery->name }}</h4>
+                                <div class="d-flex flex-column flex-md-row align-items-center">
+                                    <input type="text" id="searchInput"
+                                        class="form-control mb-3 mb-md-0 me-md-4 w-100 w-md-auto" style="max-width: 400px;"
                                         placeholder="Search media...">
                                     {{-- @if (auth()->user()->authorize('medias.create')) --}}
                                     <button class="btn d-flex btn-success" data-bs-toggle="modal"
                                         data-bs-target="#addMediaModal">
                                         <i class="ri-add-line align-bottom me-1"></i>
-                                        Add</button>
+                                        Add
+                                    </button>
                                     {{-- @endif --}}
                                 </div>
                             </div>
                         </div>
+
+
+
                         <input type="hidden" name="gallery_id" id="gallery_id" value={{ $id }}>
                         <div class="media-grid">
                             @foreach ($medias as $item)
